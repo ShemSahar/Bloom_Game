@@ -13994,9 +13994,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 516286527575590183, guid: 483fdf954fa4c4e8ca8877d5dd82bf9d,
         type: 3}
+      propertyPath: interactButton
+      value: 
+      objectReference: {fileID: 600303989}
+    - target: {fileID: 516286527575590183, guid: 483fdf954fa4c4e8ca8877d5dd82bf9d,
+        type: 3}
       propertyPath: playerTransform
       value: 
-      objectReference: {fileID: 1651279627}
+      objectReference: {fileID: 1905599579}
     - target: {fileID: 7423469944230813189, guid: 483fdf954fa4c4e8ca8877d5dd82bf9d,
         type: 3}
       propertyPath: m_LocalPosition.x
