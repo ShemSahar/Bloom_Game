@@ -1,0 +1,1007 @@
+fileFormatVersion: 2
+guid: 61044cb376d05464682f3f80cab08dca
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Movement_Right_0
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 1724
+        width: 153
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1b7cd2423554c638803c384a6cf826
+      internalID: -1152711549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_1
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 1719
+        width: 188
+        height: 292
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb377db17806b4cf4841a972af0109c3
+      internalID: -909086091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_2
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1721
+        width: 150
+        height: 372
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66518eab4c8f6424a924690274d20e4e
+      internalID: 612747359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_3
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1725
+        width: 149
+        height: 409
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 763d0a62772f54c69a482a993b39768f
+      internalID: -387683262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_4
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 1723
+        width: 154
+        height: 452
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99eb43c7210c44c68827356272805af7
+      internalID: 1115886752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_5
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 1723
+        width: 151
+        height: 422
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0883c97b93c9c4462ba37c1a6542bf19
+      internalID: -830962499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_6
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 1725
+        width: 151
+        height: 404
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a7ba567c15f74669afa1f4744581409
+      internalID: 1285200122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_7
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 1724
+        width: 170
+        height: 281
+      alignment: 9
+      pivot: {x: 0.29766917, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e97581533dba54957ab1e9d35dd9a50d
+      internalID: 32148139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_8
+      rect:
+        serializedVersion: 2
+        x: 1796
+        y: 1724
+        width: 177
+        height: 275
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fec19b5eb9184b5496e3a6786e89ebf
+      internalID: -1489372733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Right_9
+      rect:
+        serializedVersion: 2
+        x: 2034
+        y: 1724
+        width: 153
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f543e3df9dcf4240ae76687e1c87b7c
+      internalID: 318286967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_10
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 1169
+        width: 153
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c561119540ead48bd97dfcc400f2af68
+      internalID: 486472337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_9
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 1169
+        width: 176
+        height: 275
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11084d603ef0d4ee78571f7e1f7ecd7c
+      internalID: -1913885988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_8
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 1169
+        width: 170
+        height: 281
+      alignment: 9
+      pivot: {x: 0.7023319, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dfcfc8276e2848fab7c172757fbec31
+      internalID: 1663100597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_7
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 1169
+        width: 151
+        height: 405
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c90cf79799c7c412e9b64b1198a72e85
+      internalID: 306321706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_6
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 1171
+        width: 151
+        height: 419
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99bc58885d39a40078cb09ad1c750065
+      internalID: 1039131818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_5
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 1171
+        width: 154
+        height: 449
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3c087ff461364992827d0c54731f45a
+      internalID: -286621107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_4
+      rect:
+        serializedVersion: 2
+        x: 1369
+        y: 1171
+        width: 148
+        height: 408
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b849ab2110fe441c28f07b62f5b2aac1
+      internalID: -343576197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_3
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 1169
+        width: 150
+        height: 368
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9d7f7f1a443f4c9da4048be4ebcaf51
+      internalID: -340116007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_2
+      rect:
+        serializedVersion: 2
+        x: 1789
+        y: 1164
+        width: 188
+        height: 292
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 895ef95d9cf894880a26da026d7483ac
+      internalID: 998002863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Left_1
+      rect:
+        serializedVersion: 2
+        x: 2026
+        y: 1169
+        width: 153
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 476d2e52367da492fa5f5c8d937b7bd7
+      internalID: -1991070883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 624
+        width: 154
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7da9de77ad584f56855bbc27385bded
+      internalID: 918288668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_2
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 624
+        width: 140
+        height: 267
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad4d004096f544818917b88b21fc669b
+      internalID: 2145589609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_3
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 650
+        width: 105
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 509f4b776080a4946aa14d4a7240a9ff
+      internalID: 1049840830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_4
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 701
+        width: 112
+        height: 331
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f63ccf39bbb4058afc9318e717e519
+      internalID: 1598430333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_5
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 749
+        width: 130
+        height: 313
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c069f48865248fb8030b9a6555517c
+      internalID: -13333138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_6
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 687
+        width: 123
+        height: 362
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0763bc42cfc6e4a4297649eab06aaad2
+      internalID: -679516675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_7
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 644
+        width: 137
+        height: 355
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23e4e94aa1c344330af1fa2b94ea3762
+      internalID: 1608381305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_8
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 621
+        width: 112
+        height: 249
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b5eb5d72ae544287b065ca7cce0d200
+      internalID: -1154978506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_9
+      rect:
+        serializedVersion: 2
+        x: 1811
+        y: 620
+        width: 115
+        height: 242
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12946a0262c9543d7a0126085069bffa
+      internalID: -1777847411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Down_10
+      rect:
+        serializedVersion: 2
+        x: 2034
+        y: 624
+        width: 153
+        height: 389
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e58263bfab5a4eefab0ccced2f06998
+      internalID: 1070296680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 138
+        width: 154
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b938ac02558485a8368b97258d2df6
+      internalID: -1613774038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_2
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 139
+        width: 146
+        height: 266
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce016e7adddf14f988d1655fafeb9ae7
+      internalID: 1764993819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_3
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 164
+        width: 105
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce52bdd607b0b4ac190f0ce1b5397d9f
+      internalID: -614207502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_4
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 215
+        width: 112
+        height: 330
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3e4c194e72bc47cf88919f2c30571f6
+      internalID: -1906518581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_5
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 263
+        width: 130
+        height: 313
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8af9c15dd570045cbbc89d462092fc85
+      internalID: -1580817952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_6
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 201
+        width: 123
+        height: 362
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a6d4b349ec724c3d80beed2944f6790
+      internalID: 1811096269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_7
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 158
+        width: 137
+        height: 355
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59dd1adeacbda4d39998cba70ed00f60
+      internalID: -494770770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_8
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 135
+        width: 118
+        height: 248
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34e79e6fe85d5494aa1709593a3ac539
+      internalID: 1529040976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_9
+      rect:
+        serializedVersion: 2
+        x: 1811
+        y: 134
+        width: 115
+        height: 242
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27f992c04a00744c0b6ba3539c6ccce8
+      internalID: 749302567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Movement_Up_10
+      rect:
+        serializedVersion: 2
+        x: 2034
+        y: 138
+        width: 153
+        height: 388
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3cd05e0fefa1437a984bedb79217f52
+      internalID: -1052509053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Movement_Down_1: 918288668
+      Movement_Down_10: 1070296680
+      Movement_Down_2: 2145589609
+      Movement_Down_3: 1049840830
+      Movement_Down_4: 1598430333
+      Movement_Down_5: -13333138
+      Movement_Down_6: -679516675
+      Movement_Down_7: 1608381305
+      Movement_Down_8: -1154978506
+      Movement_Down_9: -1777847411
+      Movement_Left_1: -1991070883
+      Movement_Left_10: 486472337
+      Movement_Left_2: 998002863
+      Movement_Left_3: -340116007
+      Movement_Left_4: -343576197
+      Movement_Left_5: -286621107
+      Movement_Left_6: 1039131818
+      Movement_Left_7: 306321706
+      Movement_Left_8: 1663100597
+      Movement_Left_9: -1913885988
+      Movement_Right_0: -1152711549
+      Movement_Right_1: -909086091
+      Movement_Right_2: 612747359
+      Movement_Right_3: -387683262
+      Movement_Right_4: 1115886752
+      Movement_Right_5: -830962499
+      Movement_Right_6: -830962499
+      Movement_Right_7: 1285200122
+      Movement_Right_8: 32148139
+      Movement_Right_9: -1489372733
+      Movement_Up_1: -1613774038
+      Movement_Up_10: -1052509053
+      Movement_Up_2: 1764993819
+      Movement_Up_3: -614207502
+      Movement_Up_4: -1906518581
+      Movement_Up_5: -1580817952
+      Movement_Up_6: 1811096269
+      Movement_Up_7: -494770770
+      Movement_Up_8: 1529040976
+      Movement_Up_9: 749302567
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
