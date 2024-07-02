@@ -20,6 +20,7 @@ public class JoystickController : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float interactRange = 2.0f;
     [SerializeField] private Button interactButton; // Reference to the interact button
+    [SerializeField] private Transform colliderHolder; // Reference to the ColliderHolder
 
     [Header("Additional Settings")]
     [SerializeField] private float groundDrag = 5f;
@@ -72,6 +73,9 @@ public class JoystickController : MonoBehaviour
 
         // Update the grounded status in the Animator
         _animator.SetBool("IsGrounded", IsGrounded());
+
+        // Update the collider holder rotation based on movement direction
+        UpdateColliderRotation();
     }
 
     private void FixedUpdate()
@@ -90,6 +94,20 @@ public class JoystickController : MonoBehaviour
             {
                 transform.rotation = Quaternion.LookRotation(direction);
             }
+        }
+    }
+
+    private void UpdateColliderRotation()
+    {
+        if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+        {
+            // Lean the collider holder forward when moving
+            colliderHolder.localRotation = Quaternion.Euler(15, 0, 0); // Adjust the angle as needed
+        }
+        else
+        {
+            // Reset the collider holder rotation when idle
+            colliderHolder.localRotation = Quaternion.identity;
         }
     }
 

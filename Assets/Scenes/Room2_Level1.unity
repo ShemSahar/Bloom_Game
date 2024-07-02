@@ -11226,7 +11226,8 @@ MonoBehaviour:
   interactKey: 101
   playerTransform: {fileID: 1651279627}
   interactRange: 1.5
-  interactButton: {fileID: 0}
+  interactButton: {fileID: 600303989}
+  colliderHolder: {fileID: 1905599579}
   groundDrag: 4
   airMultiplier: 0.4
   jumpCooldown: 0.25

@@ -433,7 +433,7 @@ Transform:
   m_GameObject: {fileID: 108061735}
   serializedVersion: 2
   m_LocalRotation: {x: 0.18653174, y: -0, z: -0, w: 0.98244894}
-  m_LocalPosition: {x: -0.0375, y: 0.033680003, z: 0.00056000066}
+  m_LocalPosition: {x: -0.0375, y: 0.0452, z: 0.00056000066}
   m_LocalScale: {x: 0.0037783266, y: 0.002720396, z: 0.0037783263}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4778,8 +4778,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledLight: {fileID: 108061736}
   sunlightAmount: 15
-  interactRange: 1.5
+  interactRange: 2
   playerTransform: {fileID: 1651279627}
+  interactButton: {fileID: 600303989}
 --- !u!4 &1740891900 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6239969156481072347, guid: b71b0f8d2f881c743a85228f3030d1cb,
@@ -5898,6 +5899,7 @@ MonoBehaviour:
   sunlightAmount: 25
   interactRange: 1.5
   playerTransform: {fileID: 1651279627}
+  interactButton: {fileID: 0}
 --- !u!65 &2074305728
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6529,22 +6531,22 @@ PrefabInstance:
     - target: {fileID: 2025649636669430367, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.3
+      value: 1.4999999
       objectReference: {fileID: 0}
     - target: {fileID: 2025649636669430367, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.37735
+      value: 1.58925
       objectReference: {fileID: 0}
     - target: {fileID: 2025649636669430367, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3
+      value: 1.4999999
       objectReference: {fileID: 0}
     - target: {fileID: 2025649636669430367, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2226
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 2025649636669430367, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
@@ -6658,6 +6660,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5496460384265462121, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
+      propertyPath: _jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496460384265462121, guid: 0dd063bb24cd944909f8e38e9d5a287a,
+        type: 3}
       propertyPath: jumpButton
       value: 
       objectReference: {fileID: 1149551659}
@@ -6676,6 +6683,11 @@ PrefabInstance:
       propertyPath: interactButton
       value: 
       objectReference: {fileID: 600303989}
+    - target: {fileID: 5496460384265462121, guid: 0dd063bb24cd944909f8e38e9d5a287a,
+        type: 3}
+      propertyPath: _doubleJumpForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5868885271269344948, guid: 0dd063bb24cd944909f8e38e9d5a287a,
         type: 3}
       propertyPath: m_LocalPosition.y
