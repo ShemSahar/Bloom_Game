@@ -33,6 +33,7 @@ namespace MyGame
         private ResourceManager resourceManager;
         private Material originalMaterial;
         private bool hasInteracted = false;
+        public MissionManager missionManager;  // Reference to the MissionManager
 
         private void Start()
         {
@@ -101,6 +102,7 @@ namespace MyGame
             {
                 AddLightResource();
                 hasInteracted = true;
+                missionManager.CompleteMission();  // Notify mission manager of completion
             }
             StartRising();
             StartIncreasing();

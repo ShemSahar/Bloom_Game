@@ -87,7 +87,7 @@ namespace MyGame
                 if (!sunlightAdded && controlledLight.enabled)
                 {
                     AddSunlightToResourceManager();
-                    missionManager.CompleteMission();  // Mark mission as completed
+                    missionManager.CompleteMission();  // Notify mission manager of completion
                 }
             }
         }
@@ -133,14 +133,7 @@ namespace MyGame
             Renderer renderer = GetComponent<Renderer>();
             if (renderer != null)
             {
-                if (enable)
-                {
-                    renderer.material = outlineMaterial;
-                }
-                else
-                {
-                    renderer.material = originalMaterial;
-                }
+                renderer.material = enable ? outlineMaterial : originalMaterial;
             }
         }
 

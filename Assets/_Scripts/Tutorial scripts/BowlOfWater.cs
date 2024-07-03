@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 namespace MyGame
 {
-    public class WaterCupTutorial : MonoBehaviour, IInteractable
+    public class BowlOfWater : MonoBehaviour, IInteractable
     {
         [SerializeField]
-        private float waterAmount = 10f; // The amount of water this cup adds to the player's total
+        private float waterAmount = 10f; // The amount of water this bowl adds to the player's total
         [SerializeField]
         private float interactRange = 2.0f; // Range within which the player can interact
         [SerializeField]
@@ -26,8 +26,8 @@ namespace MyGame
         [Header("Child Settings")]
         public GameObject cylinder;  // Reference to the child Cylinder object
 
-        private bool isFull = true; // Initial state of the cup
-        private MeshRenderer meshRenderer; // To change the material of the cup
+        private bool isFull = true; // Initial state of the bowl
+        private MeshRenderer meshRenderer; // To change the material of the bowl
         private Material originalMaterial;
         private bool waterAdded = false;
         public MissionManager missionManager;  // Reference to the MissionManager

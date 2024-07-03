@@ -11,20 +11,29 @@ public class MissionManager : MonoBehaviour
     public TMP_Text mission3Text;  // Text component for mission 3
     public TMP_Text mission4Text;  // Text component for mission 4
     public TMP_Text mission5Text;  // Text component for mission 5
-    public TMP_Text mission6Text;  // Text component for mission 6
+    public Animator missionListAnimator; // Animator component for mission list panel
 
     private int currentMissionIndex = 0;
+    private bool isMissionListVisible = false;
 
     private void Start()
     {
-        missionListPanel.SetActive(false);
+        if (missionListPanel == null || missionListButton == null || mission1Text == null ||
+            mission2Text == null || mission3Text == null || mission4Text == null ||
+            mission5Text == null ||  missionListAnimator == null)
+        {
+            Debug.LogError("One or more required references are not assigned in the Inspector.");
+            return;
+        }
+
         missionListButton.onClick.AddListener(ToggleMissionList);
-        UpdateMissionListUI();
+        InitializeMissionList();
     }
 
     public void ToggleMissionList()
     {
-        missionListPanel.SetActive(!missionListPanel.activeSelf);
+        isMissionListVisible = !isMissionListVisible;
+        missionListAnimator.SetTrigger("Show");
     }
 
     public void CompleteMission()
@@ -49,18 +58,16 @@ public class MissionManager : MonoBehaviour
             case 2: return mission3Text;
             case 3: return mission4Text;
             case 4: return mission5Text;
-            case 5: return mission6Text;
             default: return null;
         }
     }
 
-    private void UpdateMissionListUI()
+    private void InitializeMissionList()
     {
         mission1Text.gameObject.SetActive(true);
         mission2Text.gameObject.SetActive(false);
         mission3Text.gameObject.SetActive(false);
         mission4Text.gameObject.SetActive(false);
         mission5Text.gameObject.SetActive(false);
-        mission6Text.gameObject.SetActive(false);
     }
 }
