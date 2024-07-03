@@ -6,7 +6,8 @@ namespace MyGame
     public class LightSwitchTutorial : MonoBehaviour, IInteractable
     {
         public Light controlledLight;  // Reference to the Light component
-        public float sunlightAmount = 10f;  // Amount of sunlight to add when the light is turned on
+        public float sunlightAmount = 15f;  // Amount of sunlight to add when the light is turned on
+        public MissionManager missionManager;  // Reference to the MissionManager
 
         [Header("Interaction Settings")]
         public float interactRange = 2.0f;  // Range within which the player can interact
@@ -22,6 +23,7 @@ namespace MyGame
         public float outlineWidth = 1.0f;  // Width of the outline
 
         private Material originalMaterial;
+        private bool sunlightAdded = false;
 
         private void Start()
         {
@@ -32,7 +34,7 @@ namespace MyGame
 
             if (interactButton != null)
             {
-                interactButton.onClick.AddListener(TryInteract);
+                interactButton.onClick.AddListener(OnInteractButtonClicked);
             }
 
             if (tutorialUI != null)
@@ -67,7 +69,7 @@ namespace MyGame
             }
         }
 
-        private void TryInteract()
+        private void OnInteractButtonClicked()
         {
             if (IsPlayerInRange())
             {
@@ -80,23 +82,31 @@ namespace MyGame
             if (controlledLight != null)
             {
                 controlledLight.enabled = !controlledLight.enabled;
-                if (controlledLight.enabled)
+                Debug.Log("Controlled Light " + (controlledLight.enabled ? "Enabled" : "Disabled"));
+
+                if (!sunlightAdded && controlledLight.enabled)
                 {
                     AddSunlightToResourceManager();
+                    missionManager.CompleteMission();  // Mark mission as completed
                 }
             }
         }
 
         private void AddSunlightToResourceManager()
         {
-            ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
-            if (resourceManager != null)
+            if (!sunlightAdded)
             {
-                resourceManager.AddSunlight(sunlightAmount);
-            }
-            else
-            {
-                Debug.LogError("ResourceManager not found in the scene.");
+                ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
+                if (resourceManager != null)
+                {
+                    resourceManager.AddSunlight(sunlightAmount);
+                    Debug.Log("Added Sunlight: " + sunlightAmount);
+                    sunlightAdded = true;  // Ensure sunlight is added only once
+                }
+                else
+                {
+                    Debug.LogError("ResourceManager not found in the scene.");
+                }
             }
         }
 
@@ -144,7 +154,7 @@ namespace MyGame
         {
             if (interactButton != null)
             {
-                interactButton.onClick.RemoveListener(TryInteract);
+                interactButton.onClick.RemoveListener(OnInteractButtonClicked);
             }
         }
     }

@@ -16,10 +16,8 @@ public class JoystickController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _furnitureLayer;
 
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float interactRange = 2.0f;
-    [SerializeField] private Button interactButton; // Reference to the interact button
     [SerializeField] private Transform colliderHolder; // Reference to the ColliderHolder
 
     [Header("Additional Settings")]
@@ -40,22 +38,10 @@ public class JoystickController : MonoBehaviour
     {
         // Ensure the Rigidbody constraints are set correctly at the start
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-        // Link the interact button to the Interact method
-        if (interactButton != null)
-        {
-            interactButton.onClick.AddListener(Interact);
-        }
     }
 
     private void Update()
     {
-        // Check for interaction input from keyboard
-        if (Input.GetKeyDown(interactKey))
-        {
-            Interact();
-        }
-
         // Apply ground drag when grounded
         if (IsGrounded())
         {
@@ -157,22 +143,6 @@ public class JoystickController : MonoBehaviour
     {
         // Check if the player is on furniture using a raycast
         return Physics.Raycast(transform.position, Vector3.down, 1.1f, _furnitureLayer);
-    }
-
-    public void Interact()
-    {
-        // Find nearby interactable objects
-        Collider[] hitColliders = Physics.OverlapSphere(playerTransform.position, interactRange);
-        foreach (var hitCollider in hitColliders)
-        {
-            IInteractable interactable = hitCollider.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                interactable.Interact();
-                _animator.SetTrigger("Interact"); // Trigger interact animation
-                break; // Only interact with one object at a time
-            }
-        }
     }
 
     private void OnDrawGizmosSelected()

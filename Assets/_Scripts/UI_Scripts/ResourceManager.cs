@@ -38,6 +38,7 @@ public class ResourceManager : MonoBehaviour
     public void AddWater(float amount)
     {
         water = Mathf.Clamp(water + amount, 0f, maxResource);
+        Debug.Log("Added Water: " + amount + ", New Water Level: " + water);
         UpdateSpeed();
         UpdateUI();
     }
@@ -45,6 +46,7 @@ public class ResourceManager : MonoBehaviour
     public void AddSunlight(float amount)
     {
         lightResource = Mathf.Clamp(lightResource + amount, 0f, maxResource);
+        Debug.Log("Added Sunlight: " + amount + ", New Light Level: " + lightResource);
         UpdateSpeed();
         UpdateUI();
     }

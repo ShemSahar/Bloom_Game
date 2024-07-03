@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ namespace MyGame
         public float interactRange = 2.0f;  // Range within which the player can interact
         public Transform playerTransform;  // Assign the player object in the Inspector
         public Button interactButton;  // Assign the interaction button in the Inspector
+
+        public bool IsInteracted { get; internal set; }
 
         private void Start()
         {
@@ -82,6 +85,16 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(TryInteract);
             }
+        }
+
+        internal void EnableInteraction()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ShowOutline(bool v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
