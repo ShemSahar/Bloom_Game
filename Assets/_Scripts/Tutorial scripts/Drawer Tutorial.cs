@@ -1,13 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyGame
 {
-    public class LightSwitchTutorial : MonoBehaviour, IInteractable
+    public class DrawerTutorial : MonoBehaviour, IInteractable
     {
-        public Light controlledLight;  // Reference to the Light component
-        public float sunlightAmount = 15f;  // Amount of sunlight to add when the light is turned on
-        public MissionManager missionManager;  // Reference to the MissionManager
+        [Header("Drawer Settings")]
+        public float moveDistance = 1.5f;  // Distance to move the drawer along the Z axis
+        public float moveSpeed = 1.0f;  // Speed at which the drawer moves
 
         [Header("Interaction Settings")]
         public float interactRange = 2.0f;  // Range within which the player can interact
@@ -22,15 +23,15 @@ namespace MyGame
         public Color outlineColor = Color.blue;  // Color of the outline
         public float outlineWidth = 1.0f;  // Width of the outline
 
+        private Vector3 initialPosition;
+        private bool isOpen = false;
         private Material originalMaterial;
-        private bool sunlightAdded = false;
+        private bool hasInteracted = false;
+        public MissionManager missionManager;  // Reference to the MissionManager
 
         private void Start()
         {
-            if (controlledLight == null)
-            {
-                Debug.LogError("No Light component found on the LightSwitch or its children.");
-            }
+            initialPosition = transform.position;
 
             if (interactButton != null)
             {
@@ -79,35 +80,25 @@ namespace MyGame
 
         public void Interact()
         {
-            if (controlledLight != null)
-            {
-                controlledLight.enabled = !controlledLight.enabled;
-                Debug.Log("Controlled Light " + (controlledLight.enabled ? "Enabled" : "Disabled"));
-
-                if (!sunlightAdded && controlledLight.enabled)
-                {
-                    AddSunlightToResourceManager();
-                    missionManager.CompleteMission();  // Notify mission manager of completion
-                }
-            }
+            StartCoroutine(MoveDrawer());
+            hasInteracted = true;
+            missionManager?.CompleteMission();  // Mark mission as completed
         }
 
-        private void AddSunlightToResourceManager()
+        private IEnumerator MoveDrawer()
         {
-            if (!sunlightAdded)
+            Vector3 targetPosition = isOpen ? initialPosition : initialPosition + new Vector3(0, 0, moveDistance);
+            Vector3 startPosition = transform.position;
+
+            float elapsedTime = 0f;
+            while (elapsedTime < moveSpeed)
             {
-                ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
-                if (resourceManager != null)
-                {
-                    resourceManager.AddSunlight(sunlightAmount);
-                    Debug.Log("Added Sunlight: " + sunlightAmount);
-                    sunlightAdded = true;  // Ensure sunlight is added only once
-                }
-                else
-                {
-                    Debug.LogError("ResourceManager not found in the scene.");
-                }
+                transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveSpeed);
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
+            transform.position = targetPosition;
+            isOpen = !isOpen;
         }
 
         private bool IsPlayerInRange()

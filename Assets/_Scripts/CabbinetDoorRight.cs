@@ -97,5 +97,10 @@ namespace MyGame
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position + gizmosOffset, interactRange);
         }
+
+        public void SetInteractable(bool isActive)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

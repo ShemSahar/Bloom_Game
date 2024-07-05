@@ -61,5 +61,10 @@ namespace MyGame
                 Debug.LogError("Controlled light not assigned or found.");
             }
         }
+
+        public void SetInteractable(bool isActive)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
