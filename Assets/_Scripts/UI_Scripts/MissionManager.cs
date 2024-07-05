@@ -13,6 +13,8 @@ public class MissionManager : MonoBehaviour
     public TMP_Text mission5Text;  // Text component for mission 5
     public Animator missionListAnimator; // Animator component for mission list panel
 
+    public Mission[] missions; // Array to hold all missions
+
     private int currentMissionIndex = 0;
     private bool isMissionListVisible = false;
 
@@ -20,7 +22,7 @@ public class MissionManager : MonoBehaviour
     {
         if (missionListPanel == null || missionListButton == null || mission1Text == null ||
             mission2Text == null || mission3Text == null || mission4Text == null ||
-            mission5Text == null ||  missionListAnimator == null)
+            mission5Text == null || missionListAnimator == null)
         {
             Debug.LogError("One or more required references are not assigned in the Inspector.");
             return;
@@ -28,6 +30,7 @@ public class MissionManager : MonoBehaviour
 
         missionListButton.onClick.AddListener(ToggleMissionList);
         InitializeMissionList();
+        UpdateMissionState();
     }
 
     public void ToggleMissionList()
@@ -38,14 +41,16 @@ public class MissionManager : MonoBehaviour
 
     public void CompleteMission()
     {
-        if (currentMissionIndex < 6)
+        if (currentMissionIndex < missions.Length)
         {
             GetMissionText(currentMissionIndex).color = Color.gray;  // Mark current mission as completed
+            missions[currentMissionIndex].CompleteMission();
             currentMissionIndex++;
-            if (currentMissionIndex < 6)
+            if (currentMissionIndex < missions.Length)
             {
                 GetMissionText(currentMissionIndex).gameObject.SetActive(true);  // Reveal the next mission
             }
+            UpdateMissionState();
         }
     }
 
@@ -69,5 +74,45 @@ public class MissionManager : MonoBehaviour
         mission3Text.gameObject.SetActive(false);
         mission4Text.gameObject.SetActive(false);
         mission5Text.gameObject.SetActive(false);
+    }
+
+    private void UpdateMissionState()
+    {
+        for (int i = 0; i < missions.Length; i++)
+        {
+            if (i == currentMissionIndex)
+            {
+                missions[i].SetInteractable(true);
+            }
+            else
+            {
+                missions[i].SetInteractable(false);
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public class Mission
+{
+    public string missionName;
+    public GameObject interactableObject;
+    private MonoBehaviour interactableScript;
+
+    public void SetInteractable(bool state)
+    {
+        if (interactableObject != null)
+        {
+            interactableScript = interactableObject.GetComponent<MonoBehaviour>();
+            if (interactableScript != null)
+            {
+                interactableScript.enabled = state;
+            }
+        }
+    }
+
+    public void CompleteMission()
+    {
+        // Logic to mark mission as complete (e.g., updating UI, saving progress, etc.)
     }
 }

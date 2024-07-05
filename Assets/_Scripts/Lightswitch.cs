@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,42 +6,32 @@ namespace MyGame
 {
     public class LightSwitch : MonoBehaviour, IInteractable
     {
-        [Header("Light Settings")]
-        public Light lightSource;
-        public bool isOn = false;
+        public Light controlledLight;  // Reference to the Light component
+        public float sunlightAmount = 10f;  // Amount of sunlight to add when the light is turned on
 
         [Header("Interaction Settings")]
-        public float interactRange = 2.0f;
-        public Transform playerTransform;
-        public Button interactButton;
+        public float interactRange = 2.0f;  // Range within which the player can interact
+        public Transform playerTransform;  // Assign the player object in the Inspector
+        public Button interactButton;  // Assign the interaction button in the Inspector
 
-        private bool isInteractable = false;  // Indicates if the object is interactable
+        public bool IsInteracted { get; internal set; }
 
         private void Start()
         {
+            if (controlledLight == null)
+            {
+                Debug.LogError("No Light component found on the LightSwitch or its children.");
+            }
+
             if (interactButton != null)
             {
-                interactButton.onClick.AddListener(OnInteractButtonClicked);
-            }
-
-            TaskManager.Instance.taskObjects.Add(gameObject);
-        }
-
-        private void Update()
-        {
-            if (IsPlayerInRange() && isInteractable)
-            {
-                // Show UI or outline to indicate interactability
-            }
-            else
-            {
-                // Hide UI or outline
+                interactButton.onClick.AddListener(TryInteract);
             }
         }
 
-        private void OnInteractButtonClicked()
+        private void TryInteract()
         {
-            if (IsPlayerInRange() && isInteractable)
+            if (IsPlayerInRange())
             {
                 Interact();
             }
@@ -48,9 +39,27 @@ namespace MyGame
 
         public void Interact()
         {
-            isOn = !isOn;
-            lightSource.enabled = isOn;
-            TaskManager.Instance.CompleteTask();  // Mark task as complete
+            if (controlledLight != null)
+            {
+                controlledLight.enabled = !controlledLight.enabled;
+                if (controlledLight.enabled)
+                {
+                    AddSunlightToResourceManager();
+                }
+            }
+        }
+
+        private void AddSunlightToResourceManager()
+        {
+            ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
+            if (resourceManager != null)
+            {
+                resourceManager.AddSunlight(sunlightAmount);
+            }
+            else
+            {
+                Debug.LogError("ResourceManager not found in the scene.");
+            }
         }
 
         private bool IsPlayerInRange()
@@ -63,17 +72,29 @@ namespace MyGame
             return false;
         }
 
-        public void SetInteractable(bool interactable)
+        private void OnDrawGizmosSelected()
         {
-            isInteractable = interactable;
+            // Draw a yellow sphere at the transform's position to visualize interact range in the editor
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, interactRange);
         }
 
         private void OnDestroy()
         {
             if (interactButton != null)
             {
-                interactButton.onClick.RemoveListener(OnInteractButtonClicked);
+                interactButton.onClick.RemoveListener(TryInteract);
             }
+        }
+
+        internal void EnableInteraction()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ShowOutline(bool v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

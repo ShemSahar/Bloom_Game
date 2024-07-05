@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace MyGame
 {
     public class BowlOfWater : MonoBehaviour, IInteractable
@@ -170,11 +171,6 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(HandleInteraction);
             }
-        }
-
-        public void SetInteractable(bool isActive)
-        {
-            throw new NotImplementedException();
         }
     }
 }

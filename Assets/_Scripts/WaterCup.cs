@@ -1,86 +1,46 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // Make sure to include this namespace
 
 namespace MyGame
 {
     public class WaterCup : MonoBehaviour, IInteractable
     {
-        [Header("Water Cup Settings")]
-        public float waterAmount = 50f;  // Amount of water to add to the player's resources
+        [SerializeField]
+        private float waterAmount = 10f; // The amount of water this cup adds to the player's total
+        [SerializeField]
+        private Material fullMaterial;   // Material when the cup is full
+        [SerializeField]
+        private Material emptyMaterial;  // Material when the cup is empty
+        [SerializeField]
+        private float interactRange = 2.0f; // Range within which the player can interact
+        [SerializeField]
+        private Transform playerTransform; // Assign the player object in the Inspector
+        [SerializeField]
+        private Button interactButton; // Assign the button in the Inspector
 
-        [Header("Interaction Settings")]
-        public float interactRange = 2.0f;  // Range within which the player can interact
-        public Transform playerTransform;  // Assign the player object in the Inspector
-        public Button interactButton;  // Assign the interaction button in the Inspector
-
-        [Header("UI Settings")]
-        public GameObject tutorialUI;  // Reference to the UI element (Text/Image) to show the tutorial instruction
-
-        [Header("Outline Settings")]
-        public Material outlineMaterial;  // Reference to the outline material
-        public Color outlineColor = Color.blue;  // Color of the outline
-        public float outlineWidth = 1.0f;  // Width of the outline
-
-        private bool isInteractable = false;  // Indicates if the object is interactable
-        private Material originalMaterial;
-
-        public MissionManager missionManager;  // Reference to the MissionManager
+        private bool isFull = true; // Initial state of the cup
+        private MeshRenderer meshRenderer; // To change the material of the cup
 
         private void Start()
         {
-            if (interactButton != null)
-            {
-                interactButton.onClick.AddListener(OnInteractButtonClicked);
-            }
+            meshRenderer = GetComponent<MeshRenderer>();
+            SetMaterial(isFull ? fullMaterial : emptyMaterial);
 
-            if (tutorialUI != null)
+            // Ensure the interactButton is assigned and set up the listener
+            if (interactButton == null)
             {
-                tutorialUI.SetActive(false);
+                Debug.LogError("Interact Button is not assigned.");
+                return;
             }
-
-            if (outlineMaterial != null)
-            {
-                outlineMaterial.SetColor("_BaseColor", outlineColor);
-                outlineMaterial.SetFloat("_OutlineWidth", outlineWidth);
-            }
-
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                originalMaterial = renderer.material;
-            }
-
-            TaskManager.Instance.taskObjects.Add(gameObject);
+            interactButton.onClick.AddListener(HandleInteraction);
         }
 
-        private void Update()
+        private void HandleInteraction()
         {
-            if (IsPlayerInRange() && isInteractable)
-            {
-                ShowTutorialUI(true);
-                EnableOutline(true);
-            }
-            else
-            {
-                ShowTutorialUI(false);
-                EnableOutline(false);
-            }
-        }
-
-        private void OnInteractButtonClicked()
-        {
-            if (IsPlayerInRange() && isInteractable)
+            if (IsPlayerInRange() && isFull)
             {
                 Interact();
             }
-        }
-
-        public void Interact()
-        {
-            // Logic to add water to player's resources
-            missionManager?.CompleteMission();  // Mark mission as completed
-            TaskManager.Instance.CompleteTask();
         }
 
         private bool IsPlayerInRange()
@@ -88,39 +48,60 @@ namespace MyGame
             if (playerTransform != null)
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-                return distanceToPlayer <= interactRange;
+                return distanceToPlayer <= interactRange && IsGizmosColliding();
             }
             return false;
         }
 
-        private void ShowTutorialUI(bool show)
+        private bool IsGizmosColliding()
         {
-            if (tutorialUI != null)
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactRange);
+            foreach (var hitCollider in hitColliders)
             {
-                tutorialUI.SetActive(show);
+                if (hitCollider.transform == playerTransform)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void Interact()
+        {
+            if (isFull)
+            {
+                AddWaterToResourceManager();
+                isFull = false;
+                SetMaterial(emptyMaterial);
             }
         }
 
-        private void EnableOutline(bool enable)
+        private void AddWaterToResourceManager()
         {
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
+            ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
+            if (resourceManager != null)
             {
-                renderer.material = enable ? outlineMaterial : originalMaterial;
+                resourceManager.AddWater(waterAmount);
+            }
+            else
+            {
+                Debug.LogError("ResourceManager not found in the scene.");
             }
         }
 
-        private void OnDestroy()
+        private void SetMaterial(Material material)
         {
-            if (interactButton != null)
+            if (meshRenderer && material)
             {
-                interactButton.onClick.RemoveListener(OnInteractButtonClicked);
+                meshRenderer.material = material;
             }
         }
 
-        public void SetInteractable(bool interactable)
+        private void OnDrawGizmosSelected()
         {
-            isInteractable = interactable;
+            // Draw a yellow sphere at the transform's position to visualize interact range in the editor
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, interactRange);
         }
     }
 }

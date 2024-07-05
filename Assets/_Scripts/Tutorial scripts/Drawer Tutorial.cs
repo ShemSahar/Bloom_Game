@@ -26,6 +26,12 @@ namespace MyGame
         private Vector3 initialPosition;
         private bool isOpen = false;
         private Material originalMaterial;
+
+        public DrawerTutorial(bool hasInteracted)
+        {
+            this.hasInteracted = hasInteracted;
+        }
+
         private bool hasInteracted = false;
         public MissionManager missionManager;  // Reference to the MissionManager
 
@@ -140,11 +146,6 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(OnInteractButtonClicked);
             }
-        }
-
-        public void SetInteractable(bool isActive)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

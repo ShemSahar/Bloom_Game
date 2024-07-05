@@ -228,10 +228,5 @@ namespace MyGame
                 interactButton.onClick.RemoveListener(OnInteractButtonClicked);
             }
         }
-
-        public void SetInteractable(bool isActive)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

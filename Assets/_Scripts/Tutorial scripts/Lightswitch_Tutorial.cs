@@ -24,6 +24,7 @@ namespace MyGame
 
         private Material originalMaterial;
         private bool sunlightAdded = false;
+        private bool lightStateChanged = false;
 
         private void Start()
         {
@@ -79,34 +80,38 @@ namespace MyGame
 
         public void Interact()
         {
-            if (controlledLight != null)
+            if (controlledLight != null && !lightStateChanged)
             {
                 controlledLight.enabled = !controlledLight.enabled;
                 Debug.Log("Controlled Light " + (controlledLight.enabled ? "Enabled" : "Disabled"));
 
-                if (!sunlightAdded && controlledLight.enabled)
+                if (controlledLight.enabled && !sunlightAdded)
                 {
                     AddSunlightToResourceManager();
-                    missionManager.CompleteMission();  // Notify mission manager of completion
+                    missionManager.CompleteMission();  // Mark mission as completed
+                    sunlightAdded = true;
                 }
+                lightStateChanged = true;
+                Invoke(nameof(ResetLightStateChanged), 0.1f); // Reset the state after a short delay to prevent double interaction
             }
+        }
+
+        private void ResetLightStateChanged()
+        {
+            lightStateChanged = false;
         }
 
         private void AddSunlightToResourceManager()
         {
-            if (!sunlightAdded)
+            ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
+            if (resourceManager != null)
             {
-                ResourceManager resourceManager = FindObjectOfType<ResourceManager>();
-                if (resourceManager != null)
-                {
-                    resourceManager.AddSunlight(sunlightAmount);
-                    Debug.Log("Added Sunlight: " + sunlightAmount);
-                    sunlightAdded = true;  // Ensure sunlight is added only once
-                }
-                else
-                {
-                    Debug.LogError("ResourceManager not found in the scene.");
-                }
+                resourceManager.AddSunlight(sunlightAmount);
+                Debug.Log("Added Sunlight: " + sunlightAmount);
+            }
+            else
+            {
+                Debug.LogError("ResourceManager not found in the scene.");
             }
         }
 
@@ -149,11 +154,6 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(OnInteractButtonClicked);
             }
-        }
-
-        public void SetInteractable(bool isActive)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
