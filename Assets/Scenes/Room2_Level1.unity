@@ -3534,7 +3534,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eedbe3b1ac2c34c549b4b660aa0515b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joystickController: {fileID: 1651279629}
+  playerTransform: {fileID: 1651279627}
+  interactRange: 2
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!1 &604763976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1926960415663144798, guid: 8586ba8ebb3da45839abf725270067d1,
@@ -11157,8 +11161,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651279624}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 1.4, z: -10}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -12.15, y: 1.4, z: 11.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -11167,7 +11171,7 @@ Transform:
   - {fileID: 2039519552}
   - {fileID: 1475553686}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1651279628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11223,10 +11227,8 @@ MonoBehaviour:
   _furnitureLayer:
     serializedVersion: 2
     m_Bits: 4096
-  interactKey: 101
   playerTransform: {fileID: 1651279627}
   interactRange: 1.5
-  interactButton: {fileID: 600303989}
   colliderHolder: {fileID: 1905599579}
   groundDrag: 4
   airMultiplier: 0.4
@@ -11697,7 +11699,7 @@ Transform:
   m_GameObject: {fileID: 1694867481}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.36964378, z: -0.09904577, w: 0.8923991}
-  m_LocalPosition: {x: -10, y: 3.93, z: -10}
+  m_LocalPosition: {x: -10, y: 4, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:

@@ -7,6 +7,7 @@ namespace MyGame
     public class DrawerTutorial : MonoBehaviour, IInteractable
     {
         [Header("Drawer Settings")]
+        public Transform drawerTransform;  // Assign the target drawer object in the Inspector
         public float moveDistance = 1.5f;  // Distance to move the drawer along the Z axis
         public float moveSpeed = 1.0f;  // Speed at which the drawer moves
 
@@ -26,18 +27,18 @@ namespace MyGame
         private Vector3 initialPosition;
         private bool isOpen = false;
         private Material originalMaterial;
-
-        public DrawerTutorial(bool hasInteracted)
-        {
-            this.hasInteracted = hasInteracted;
-        }
-
         private bool hasInteracted = false;
         public MissionManager missionManager;  // Reference to the MissionManager
 
         private void Start()
         {
-            initialPosition = transform.position;
+            if (drawerTransform == null)
+            {
+                Debug.LogError("DrawerTransform is not assigned.");
+                return;
+            }
+
+            initialPosition = drawerTransform.position;
 
             if (interactButton != null)
             {
@@ -86,25 +87,36 @@ namespace MyGame
 
         public void Interact()
         {
-            StartCoroutine(MoveDrawer());
-            hasInteracted = true;
-            missionManager?.CompleteMission();  // Mark mission as completed
+            if (!hasInteracted)
+            {
+                StartCoroutine(MoveDrawer());
+                missionManager?.CompleteMission();  // Mark mission as completed
+            }
+            else
+            {
+                StartCoroutine(MoveDrawer());
+            }
         }
 
         private IEnumerator MoveDrawer()
         {
             Vector3 targetPosition = isOpen ? initialPosition : initialPosition + new Vector3(0, 0, moveDistance);
-            Vector3 startPosition = transform.position;
+            Vector3 startPosition = drawerTransform.position;
 
             float elapsedTime = 0f;
             while (elapsedTime < moveSpeed)
             {
-                transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveSpeed);
+                drawerTransform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveSpeed);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            transform.position = targetPosition;
+            drawerTransform.position = targetPosition;
             isOpen = !isOpen;
+        }
+
+        public bool IsDrawerOpen()
+        {
+            return isOpen;
         }
 
         private bool IsPlayerInRange()

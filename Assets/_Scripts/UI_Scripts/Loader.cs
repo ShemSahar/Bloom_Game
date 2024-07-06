@@ -13,6 +13,7 @@ public static class Loader
         Room1_Tutorial,
         Loading,
         MainMenu,
+        Room2_Level1,
     }
 
     private static Action onLoaderCallback;
