@@ -14,11 +14,10 @@ namespace MyGame
         public float interactRange = 2.0f;  // Range within which the player can interact
         public Transform playerTransform;  // Assign the player object in the Inspector
         public Button interactButton;  // Assign the interaction button in the Inspector
+        public Outline outline;  // Reference to the Outline component
 
-        private Material originalMaterial;
         private bool sunlightAdded = false;
         private bool lightStateChanged = false;
-        private bool isBlinking = true;
 
         private void Start()
         {
@@ -32,24 +31,26 @@ namespace MyGame
                 interactButton.onClick.AddListener(OnInteractButtonClicked);
             }
 
-            originalMaterial = GetComponent<Renderer>().material;
-            if (originalMaterial == null)
+            if (outline == null)
             {
-                Debug.LogError("No material found on the LightSwitch or its children.");
+                outline = GetComponent<Outline>();
+                if (outline == null)
+                {
+                    Debug.LogError("No Outline component found on the LightSwitch or its children.");
+                }
             }
-
-            StartCoroutine(BlinkEmission());
+            outline.enabled = true;  // Start with the outline toggled on
         }
 
         private void Update()
         {
             if (IsPlayerInRange())
             {
-                EnableEmission(true);
+                outline.enabled = true;
             }
             else
             {
-                EnableEmission(false);
+                outline.enabled = false;
             }
         }
 
@@ -75,8 +76,7 @@ namespace MyGame
                     sunlightAdded = true;
                 }
                 lightStateChanged = true;
-                isBlinking = false;  // Stop blinking
-                EnableEmission(false);  // Ensure emission is off
+                outline.enabled = false;  // Toggle off the outline
                 Invoke(nameof(ResetLightStateChanged), 0.1f); // Reset the state after a short delay to prevent double interaction
             }
         }
@@ -108,33 +108,6 @@ namespace MyGame
                 return distanceToPlayer <= interactRange;
             }
             return false;
-        }
-
-        private void EnableEmission(bool enable)
-        {
-            if (originalMaterial != null)
-            {
-                if (enable)
-                {
-                    originalMaterial.EnableKeyword("_EMISSION");
-                    originalMaterial.SetColor("_EmissionColor", Color.blue * 1.5f);  // Adjust the color and intensity as needed
-                }
-                else
-                {
-                    originalMaterial.DisableKeyword("_EMISSION");
-                }
-            }
-        }
-
-        private IEnumerator BlinkEmission()
-        {
-            while (isBlinking)
-            {
-                EnableEmission(true);
-                yield return new WaitForSeconds(0.5f);
-                EnableEmission(false);
-                yield return new WaitForSeconds(0.5f);
-            }
         }
 
         private void OnDestroy()

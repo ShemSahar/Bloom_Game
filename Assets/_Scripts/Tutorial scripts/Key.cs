@@ -13,10 +13,18 @@ namespace MyGame
 
         private bool isCollected = false;
         private Renderer keyRenderer;
+        private Outline outline;
 
         private void Start()
         {
             keyRenderer = GetComponent<Renderer>();
+            outline = GetComponent<Outline>();
+
+            if (outline == null)
+            {
+                Debug.LogError("No Outline component found on the Key or its children.");
+            }
+            outline.enabled = false;  // Start with the outline toggled off
 
             if (interactButton != null)
             {
@@ -33,11 +41,11 @@ namespace MyGame
         {
             if (drawerScript.IsDrawerOpen() && IsPlayerInRange() && !isCollected)
             {
-                EnableOutline(true);
+                outline.enabled = true;
             }
             else
             {
-                EnableOutline(false);
+                outline.enabled = false;
             }
         }
 
@@ -61,6 +69,8 @@ namespace MyGame
                     keyIconUI.SetActive(true);
                 }
 
+                outline.enabled = false;  // Toggle off the outline after interaction
+
                 Debug.Log("Key collected!");
             }
         }
@@ -73,15 +83,6 @@ namespace MyGame
                 return distanceToPlayer <= interactRange;
             }
             return false;
-        }
-
-        private void EnableOutline(bool enable)
-        {
-            Outline outline = GetComponent<Outline>();
-            if (outline != null)
-            {
-                outline.enabled = enable;
-            }
         }
 
         private void OnDrawGizmosSelected()

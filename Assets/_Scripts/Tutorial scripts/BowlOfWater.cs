@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace MyGame
 {
     public class BowlOfWater : MonoBehaviour, IInteractable
@@ -20,23 +19,17 @@ namespace MyGame
         public GameObject tutorialUI;  // Reference to the UI element (Text/Image) to show the tutorial instruction
 
         [Header("Outline Settings")]
-        public Material outlineMaterial;  // Reference to the outline material
-        public Color outlineColor = Color.blue;  // Color of the outline
-        public float outlineWidth = 1.0f;  // Width of the outline
+        public Outline outline;  // Reference to the Outline component
 
         [Header("Child Settings")]
         public GameObject cylinder;  // Reference to the child Cylinder object
 
         private bool isFull = true; // Initial state of the bowl
-        private MeshRenderer meshRenderer; // To change the material of the bowl
-        private Material originalMaterial;
         private bool waterAdded = false;
         public MissionManager missionManager;  // Reference to the MissionManager
 
         private void Start()
         {
-            meshRenderer = GetComponent<MeshRenderer>();
-
             // Ensure the interactButton is assigned and set up the listener
             if (interactButton == null)
             {
@@ -50,16 +43,15 @@ namespace MyGame
                 tutorialUI.SetActive(false);
             }
 
-            if (outlineMaterial != null)
+            if (outline == null)
             {
-                outlineMaterial.SetColor("_BaseColor", outlineColor);
-                outlineMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                outline = GetComponent<Outline>();
+                if (outline == null)
+                {
+                    Debug.LogError("No Outline component found on the BowlOfWater or its children.");
+                }
             }
-
-            if (meshRenderer != null)
-            {
-                originalMaterial = meshRenderer.material;
-            }
+            outline.enabled = false;  // Start with the outline toggled off
 
             if (cylinder == null)
             {
@@ -76,12 +68,12 @@ namespace MyGame
             if (IsPlayerInRange())
             {
                 ShowTutorialUI(true);
-                EnableOutline(true);
+                outline.enabled = true;
             }
             else
             {
                 ShowTutorialUI(false);
-                EnableOutline(false);
+                outline.enabled = false;
             }
         }
 
@@ -112,6 +104,7 @@ namespace MyGame
                 ToggleCylinder(false);
                 waterAdded = true;  // Ensure water is added only once
                 missionManager.CompleteMission();  // Notify mission manager of completion
+                outline.enabled = false;  // Toggle off the outline after interaction
             }
         }
 
@@ -146,15 +139,6 @@ namespace MyGame
             if (tutorialUI != null)
             {
                 tutorialUI.SetActive(show);
-            }
-        }
-
-        private void EnableOutline(bool enable)
-        {
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.material = enable ? outlineMaterial : originalMaterial;
             }
         }
 

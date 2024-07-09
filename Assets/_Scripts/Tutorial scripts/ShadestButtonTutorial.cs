@@ -24,14 +24,11 @@ namespace MyGame
         public GameObject tutorialUI;  // Reference to the UI element (Text/Image) to show the tutorial instruction
 
         [Header("Outline Settings")]
-        public Material outlineMaterial;  // Reference to the outline material
-        public Color outlineColor = Color.blue;  // Color of the outline
-        public float outlineWidth = 1.0f;  // Width of the outline
+        public Outline outline;  // Reference to the Outline component
 
         private bool isIncreasing;
         private Coroutine risingCoroutine;
         private ResourceManager resourceManager;
-        private Material originalMaterial;
         private bool hasInteracted = false;
         public MissionManager missionManager;  // Reference to the MissionManager
 
@@ -61,17 +58,15 @@ namespace MyGame
                 tutorialUI.SetActive(false);
             }
 
-            if (outlineMaterial != null)
+            if (outline == null)
             {
-                outlineMaterial.SetColor("_BaseColor", outlineColor);
-                outlineMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                outline = GetComponent<Outline>();
+                if (outline == null)
+                {
+                    Debug.LogError("No Outline component found on the ShadeButton or its children.");
+                }
             }
-
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                originalMaterial = renderer.material;
-            }
+            outline.enabled = false;  // Start with the outline toggled off
         }
 
         private void Update()
@@ -79,12 +74,12 @@ namespace MyGame
             if (IsPlayerInRange())
             {
                 ShowTutorialUI(true);
-                EnableOutline(true);
+                outline.enabled = true;
             }
             else
             {
                 ShowTutorialUI(false);
-                EnableOutline(false);
+                outline.enabled = false;
             }
         }
 
@@ -103,6 +98,7 @@ namespace MyGame
                 AddLightResource();
                 hasInteracted = true;
                 missionManager.CompleteMission();  // Notify mission manager of completion
+                outline.enabled = false;  // Toggle off the outline after interaction
             }
             StartRising();
             StartIncreasing();
@@ -202,15 +198,6 @@ namespace MyGame
             if (tutorialUI != null)
             {
                 tutorialUI.SetActive(show);
-            }
-        }
-
-        private void EnableOutline(bool enable)
-        {
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.material = enable ? outlineMaterial : originalMaterial;
             }
         }
 
