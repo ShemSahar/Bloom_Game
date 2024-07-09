@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,17 +15,10 @@ namespace MyGame
         public Transform playerTransform;  // Assign the player object in the Inspector
         public Button interactButton;  // Assign the interaction button in the Inspector
 
-        [Header("UI Settings")]
-        public GameObject tutorialUI;  // Reference to the UI element (Text/Image) to show the tutorial instruction
-
-        [Header("Outline Settings")]
-        public Material outlineMaterial;  // Reference to the outline material
-        public Color outlineColor = Color.blue;  // Color of the outline
-        public float outlineWidth = 1.0f;  // Width of the outline
-
         private Material originalMaterial;
         private bool sunlightAdded = false;
         private bool lightStateChanged = false;
+        private bool isBlinking = true;
 
         private void Start()
         {
@@ -38,35 +32,24 @@ namespace MyGame
                 interactButton.onClick.AddListener(OnInteractButtonClicked);
             }
 
-            if (tutorialUI != null)
+            originalMaterial = GetComponent<Renderer>().material;
+            if (originalMaterial == null)
             {
-                tutorialUI.SetActive(false);
+                Debug.LogError("No material found on the LightSwitch or its children.");
             }
 
-            if (outlineMaterial != null)
-            {
-                outlineMaterial.SetColor("_BaseColor", outlineColor);
-                outlineMaterial.SetFloat("_OutlineWidth", outlineWidth);
-            }
-
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                originalMaterial = renderer.material;
-            }
+            StartCoroutine(BlinkEmission());
         }
 
         private void Update()
         {
             if (IsPlayerInRange())
             {
-                ShowTutorialUI(true);
-                EnableOutline(true);
+                EnableEmission(true);
             }
             else
             {
-                ShowTutorialUI(false);
-                EnableOutline(false);
+                EnableEmission(false);
             }
         }
 
@@ -92,6 +75,8 @@ namespace MyGame
                     sunlightAdded = true;
                 }
                 lightStateChanged = true;
+                isBlinking = false;  // Stop blinking
+                EnableEmission(false);  // Ensure emission is off
                 Invoke(nameof(ResetLightStateChanged), 0.1f); // Reset the state after a short delay to prevent double interaction
             }
         }
@@ -125,27 +110,31 @@ namespace MyGame
             return false;
         }
 
-        private void ShowTutorialUI(bool show)
+        private void EnableEmission(bool enable)
         {
-            if (tutorialUI != null)
+            if (originalMaterial != null)
             {
-                tutorialUI.SetActive(show);
+                if (enable)
+                {
+                    originalMaterial.EnableKeyword("_EMISSION");
+                    originalMaterial.SetColor("_EmissionColor", Color.blue * 1.5f);  // Adjust the color and intensity as needed
+                }
+                else
+                {
+                    originalMaterial.DisableKeyword("_EMISSION");
+                }
             }
         }
 
-        private void EnableOutline(bool enable)
+        private IEnumerator BlinkEmission()
         {
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer != null)
+            while (isBlinking)
             {
-                renderer.material = enable ? outlineMaterial : originalMaterial;
+                EnableEmission(true);
+                yield return new WaitForSeconds(0.5f);
+                EnableEmission(false);
+                yield return new WaitForSeconds(0.5f);
             }
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, interactRange);
         }
 
         private void OnDestroy()
