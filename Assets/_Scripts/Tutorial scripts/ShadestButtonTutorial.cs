@@ -10,11 +10,6 @@ namespace MyGame
         public float shadeSpeed = 1.0f; // Speed of shade rising
         public Transform[] shadeTransforms; // Assign the shade objects in the Inspector
 
-        [Header("Light Settings")]
-        public Light[] spotLights; // Assign the spotlight objects in the Inspector
-        public float maxIntensity = 5.0f;
-        public float lightSpeed = 1.0f; // Speed of intensity increase
-
         [Header("Interaction Settings")]
         public float interactRange = 2.0f; // Range within which the player can interact
         public Transform playerTransform; // Assign the player object in the Inspector
@@ -34,14 +29,6 @@ namespace MyGame
 
         private void Start()
         {
-            foreach (Light light in spotLights)
-            {
-                if (light != null)
-                {
-                    light.intensity = 0.0f; // Initialize intensity
-                }
-            }
-
             resourceManager = FindObjectOfType<ResourceManager>();
             if (resourceManager == null)
             {
@@ -101,7 +88,6 @@ namespace MyGame
                 outline.enabled = false;  // Toggle off the outline after interaction
             }
             StartRising();
-            StartIncreasing();
         }
 
         private bool IsPlayerInRange()
@@ -157,39 +143,6 @@ namespace MyGame
                     shadeTransform.localScale = scale;
                 }
                 yield return null;
-            }
-        }
-
-        public void StartIncreasing()
-        {
-            isIncreasing = true;
-        }
-
-        public void StopIncreasing()
-        {
-            isIncreasing = false;
-        }
-
-        private void IncreaseIntensity()
-        {
-            foreach (Light light in spotLights)
-            {
-                if (light.intensity < maxIntensity)
-                {
-                    light.intensity += lightSpeed * Time.deltaTime;
-                    if (light.intensity > maxIntensity)
-                    {
-                        light.intensity = maxIntensity;
-                    }
-                }
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (isIncreasing)
-            {
-                IncreaseIntensity();
             }
         }
 

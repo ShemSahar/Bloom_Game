@@ -25,6 +25,10 @@ namespace MyGame
             {
                 Debug.LogError("No Light component found on the LightSwitch or its children.");
             }
+            else
+            {
+                controlledLight.intensity = 0.05f;  // Set initial low intensity
+            }
 
             if (interactButton != null)
             {
@@ -66,10 +70,17 @@ namespace MyGame
         {
             if (controlledLight != null && !lightStateChanged)
             {
-                controlledLight.enabled = !controlledLight.enabled;
-                Debug.Log("Controlled Light " + (controlledLight.enabled ? "Enabled" : "Disabled"));
+                if (controlledLight.intensity == 0.05f)
+                {
+                    controlledLight.intensity = 1.0f;
+                }
+                else
+                {
+                    controlledLight.intensity = 0.05f;
+                }
+                Debug.Log("Controlled Light Intensity: " + controlledLight.intensity);
 
-                if (controlledLight.enabled && !sunlightAdded)
+                if (controlledLight.intensity == 1.0f && !sunlightAdded)
                 {
                     AddSunlightToResourceManager();
                     missionManager.CompleteMission();  // Mark mission as completed
