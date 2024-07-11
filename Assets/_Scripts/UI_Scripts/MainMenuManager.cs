@@ -16,7 +16,21 @@ public class MainMenuManager : MonoBehaviour
         }
 
         // Ensure the GameObject is not destroyed on scene load
-        DontDestroyOnLoad(gameObject);
+        MakeRootAndDontDestroyOnLoad(gameObject);
+    }
+
+    private void MakeRootAndDontDestroyOnLoad(GameObject obj)
+    {
+        if (obj.transform.parent != null)
+        {
+            GameObject root = new GameObject("MainMenuManagerRoot");
+            DontDestroyOnLoad(root);
+            obj.transform.SetParent(root.transform);
+        }
+        else
+        {
+            DontDestroyOnLoad(obj);
+        }
     }
 
     public void StartTutorial()

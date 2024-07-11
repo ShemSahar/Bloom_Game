@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +34,13 @@ public class JoystickController : MonoBehaviour
     private float _moveMagnitudeVelocity;
 
     private void Awake()
+    {
+        // Ensure the Rigidbody constraints are set correctly at the start
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        _currentMoveSpeed = _moveSpeed; // Initialize the current move speed
+    }
+
+    private void Start()
     {
         // Ensure the Rigidbody constraints are set correctly at the start
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;

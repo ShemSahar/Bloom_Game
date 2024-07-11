@@ -220,6 +220,9 @@ MonoBehaviour:
   fullMaterial: {fileID: 2100000, guid: 677d7ecbde0cd2d4d9fc87c8e0f04225, type: 2}
   emptyMaterial: {fileID: -6271897200390792742, guid: d301dba7dd42646e0a706491751d3353,
     type: 3}
+  interactRange: 2
+  playerTransform: {fileID: 0}
+  interactButton: {fileID: 0}
 --- !u!65 &83525188
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1386,7 +1389,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 5e5233338afbe384b99c8d188486a835, type: 2}
     - target: {fileID: -7511558181221131132, guid: a16e2662cac82469b83650c326892402,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -1562,6 +1565,9 @@ MonoBehaviour:
   fullMaterial: {fileID: 2100000, guid: 677d7ecbde0cd2d4d9fc87c8e0f04225, type: 2}
   emptyMaterial: {fileID: -6271897200390792742, guid: d301dba7dd42646e0a706491751d3353,
     type: 3}
+  interactRange: 2
+  playerTransform: {fileID: 0}
+  interactButton: {fileID: 0}
 --- !u!1 &485615167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,7 +2175,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 5e5233338afbe384b99c8d188486a835, type: 2}
     - target: {fileID: -7511558181221131132, guid: a16e2662cac82469b83650c326892402,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -2840,7 +2846,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 5e5233338afbe384b99c8d188486a835, type: 2}
     - target: {fileID: -1461304994638716399, guid: 536f7c64b8294474fbd8edfed24077ba,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3721,6 +3727,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledLight: {fileID: 597170833}
   sunlightAmount: 15
+  interactRange: 2
+  playerTransform: {fileID: 0}
+  interactButton: {fileID: 0}
 --- !u!1 &972114081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 879092f5daa614e5ca179e3a66bdabf8,
@@ -3895,7 +3904,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 5e5233338afbe384b99c8d188486a835, type: 2}
     - target: {fileID: -1461304994638716399, guid: 536f7c64b8294474fbd8edfed24077ba,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5873,7 +5882,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 5e5233338afbe384b99c8d188486a835, type: 2}
     - target: {fileID: -7511558181221131132, guid: a16e2662cac82469b83650c326892402,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -6026,6 +6035,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledLight: {fileID: 542336373}
   sunlightAmount: 10
+  interactRange: 2
+  playerTransform: {fileID: 0}
+  interactButton: {fileID: 0}
 --- !u!1 &1694867481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7810,6 +7822,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledLight: {fileID: 705507994}
   sunlightAmount: 20
+  interactRange: 2
+  playerTransform: {fileID: 0}
+  interactButton: {fileID: 0}
 --- !u!65 &2074305728
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7860,10 +7875,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634e91d2a0d564852bfe8e5175922637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterLevelBar: {fileID: 467520807}
-  sunlightLevelBar: {fileID: 485615169}
-  decreaseWaterRate: 0.0004
-  decreaseSunlightRate: 0.0002
+  waterText: {fileID: 0}
+  lightText: {fileID: 0}
+  maxResource: 100
+  water: 50
+  lightResource: 50
+  waterDrainRate: 1
+  lightDrainRate: 1
+  jumpDrainMultiplier: 2
+  minSpeed: 1
+  maxSpeed: 5
+  player: {fileID: 0}
 --- !u!4 &2078356033
 Transform:
   m_ObjectHideFlags: 0
