@@ -21,6 +21,10 @@ namespace MyGame
         [Header("Outline Settings")]
         public Outline outline;  // Reference to the Outline component
 
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
+
         private bool isIncreasing;
         private Coroutine risingCoroutine;
         private ResourceManager resourceManager;
@@ -54,6 +58,11 @@ namespace MyGame
                 }
             }
             outline.enabled = false;  // Start with the outline toggled off
+
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned.");
+            }
         }
 
         private void Update()
@@ -82,6 +91,17 @@ namespace MyGame
         {
             if (!hasInteracted)
             {
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetTrigger(interactAnimationTrigger);
+                    Debug.Log("Interact animation triggered.");
+                }
+                else
+                {
+                    Debug.LogError("Player Animator is not assigned.");
+                    return;
+                }
+
                 AddLightResource();
                 hasInteracted = true;
                 missionManager.CompleteMission();  // Notify mission manager of completion

@@ -22,6 +22,10 @@ namespace MyGame
         [Header("Outline Settings")]
         public Outline outline;  // Reference to the Outline component
 
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
+
         private Vector3 initialPosition;
         private bool isOpen = false;
         private bool hasInteracted = false;
@@ -56,6 +60,12 @@ namespace MyGame
                 }
             }
             outline.enabled = false;  // Start with the outline toggled off
+
+            // Check if playerAnimator is assigned
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned in the DrawerTutorial script.");
+            }
         }
 
         private void Update()
@@ -84,6 +94,13 @@ namespace MyGame
         {
             if (!hasInteracted)
             {
+                // Trigger the interact animation
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetTrigger(interactAnimationTrigger);
+                    Debug.Log("Interact animation triggered.");
+                }
+
                 StartCoroutine(MoveDrawer());
                 missionManager?.CompleteMission();  // Mark mission as completed
                 outline.enabled = false;  // Toggle off the outline after interaction

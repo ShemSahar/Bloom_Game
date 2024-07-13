@@ -16,6 +16,10 @@ namespace MyGame
         public Button interactButton;  // Assign the interaction button in the Inspector
         public Outline outline;  // Reference to the Outline component
 
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
+
         private bool sunlightAdded = false;
         private bool lightStateChanged = false;
 
@@ -44,6 +48,11 @@ namespace MyGame
                 }
             }
             outline.enabled = true;  // Start with the outline toggled on
+
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned.");
+            }
         }
 
         private void Update()
@@ -70,6 +79,17 @@ namespace MyGame
         {
             if (controlledLight != null && !lightStateChanged)
             {
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetTrigger(interactAnimationTrigger);
+                    Debug.Log("Interact animation triggered.");
+                }
+                else
+                {
+                    Debug.LogError("Player Animator is not assigned.");
+                    return;
+                }
+
                 if (controlledLight.intensity == 0.05f)
                 {
                     controlledLight.intensity = 1.0f;

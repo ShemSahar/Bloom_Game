@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace MyGame
 {
@@ -24,8 +25,18 @@ namespace MyGame
         [Header("Child Settings")]
         public GameObject cylinder;  // Reference to the child Cylinder object
 
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string drinkAnimationTrigger = "Drink";  // Name of the trigger for the drink animation
+
+        [Header("Attachment Settings")]
+        public Transform temporaryParent;  // Reference to the temporary parent object
+        public float attachmentDuration = 3.0f;  // Duration to stay attached
+
         private bool isFull = true; // Initial state of the bowl
         private bool waterAdded = false;
+        private Vector3 startPosition;  // Store the start position of the bowl
+        private Quaternion startRotation;  // Store the start rotation of the bowl
         public MissionManager missionManager;  // Reference to the MissionManager
 
         private void Start()
@@ -61,6 +72,14 @@ namespace MyGame
             {
                 ToggleCylinder(true); // Ensure the cylinder is visible at start
             }
+
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned.");
+            }
+
+            startPosition = transform.position;
+            startRotation = transform.rotation;
         }
 
         private void Update()
@@ -99,12 +118,27 @@ namespace MyGame
         {
             if (isFull && !waterAdded)
             {
+                // Trigger the drink animation
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetTrigger(drinkAnimationTrigger);
+                    Debug.Log("Drink animation triggered.");
+                }
+                else
+                {
+                    Debug.LogError("Player Animator is not assigned.");
+                    return;
+                }
+
                 AddWaterToResourceManager();
                 isFull = false;
                 ToggleCylinder(false);
                 waterAdded = true;  // Ensure water is added only once
                 missionManager.CompleteMission();  // Notify mission manager of completion
                 outline.enabled = false;  // Toggle off the outline after interaction
+
+                // Start the attachment process
+                StartCoroutine(TemporaryAttachment());
             }
         }
 
@@ -155,6 +189,22 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(HandleInteraction);
             }
+        }
+
+        private IEnumerator TemporaryAttachment()
+        {
+            // Attach to the temporary parent
+            transform.SetParent(temporaryParent);
+            Debug.Log("Bowl of water attached to temporary parent.");
+
+            // Wait for the specified duration
+            yield return new WaitForSeconds(attachmentDuration);
+
+            // Detach and return to start position
+            transform.SetParent(null);
+            transform.position = startPosition;
+            transform.rotation = startRotation;
+            Debug.Log("Bowl of water detached from temporary parent and returned to start position.");
         }
     }
 }

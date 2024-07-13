@@ -11,6 +11,10 @@ namespace MyGame
         public float interactRange = 2.0f;  // Range within which the player can interact
         public GameObject keyIconUI;  // Reference to the key icon in the UI
 
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
+
         private bool isCollected = false;
         private Renderer keyRenderer;
 
@@ -26,6 +30,12 @@ namespace MyGame
             if (keyIconUI != null)
             {
                 keyIconUI.SetActive(false);
+            }
+
+            // Check if playerAnimator is assigned
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned in the Key script.");
             }
         }
 
@@ -53,6 +63,13 @@ namespace MyGame
         {
             if (!isCollected)
             {
+                // Trigger the interact animation
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetTrigger(interactAnimationTrigger);
+                    Debug.Log("Interact animation triggered.");
+                }
+
                 isCollected = true;
                 keyRenderer.enabled = false;
 

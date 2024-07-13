@@ -13,6 +13,10 @@ namespace MyGame
         public GameObject lockedMessageUI;  // UI element to show "locked" message
         public GameObject keyIconUI;  // Reference to the key icon in the UI
 
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
+
         private bool isUnlocked = false;
 
         private void Start()
@@ -25,6 +29,12 @@ namespace MyGame
             if (lockedMessageUI != null)
             {
                 lockedMessageUI.SetActive(false);
+            }
+
+            // Check if playerAnimator is assigned
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned in the DoorScript.");
             }
         }
 
@@ -47,6 +57,13 @@ namespace MyGame
 
         public void Interact()
         {
+            // Trigger the interact animation
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetTrigger(interactAnimationTrigger);
+                Debug.Log("Interact animation triggered.");
+            }
+
             if (isUnlocked)
             {
                 UnlockDoor();
@@ -68,7 +85,7 @@ namespace MyGame
             if (lockedMessageUI != null)
             {
                 lockedMessageUI.SetActive(true);
-                StartCoroutine(HideLockedMessageAfterDelay(4.0f));  // Hide after 2 seconds
+                StartCoroutine(HideLockedMessageAfterDelay(4.0f));  // Hide after 4 seconds
                 Debug.Log("Door is locked. Find the key.");
             }
         }
