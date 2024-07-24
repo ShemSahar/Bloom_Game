@@ -33,6 +33,9 @@ namespace MyGame
         public Transform temporaryParent;  // Reference to the temporary parent object
         public float attachmentDuration = 3.0f;  // Duration to stay attached
 
+        [Header("Audio Settings")]
+        public AudioSource interactSound;  // Reference to the AudioSource component for interaction sound
+
         private bool isFull = true; // Initial state of the bowl
         private bool waterAdded = false;
         private Vector3 startPosition;  // Store the start position of the bowl
@@ -76,6 +79,11 @@ namespace MyGame
             if (playerAnimator == null)
             {
                 Debug.LogError("Player Animator is not assigned.");
+            }
+
+            if (interactSound == null)
+            {
+                Debug.LogError("Interact Sound is not assigned.");
             }
 
             startPosition = transform.position;
@@ -128,6 +136,11 @@ namespace MyGame
                 {
                     Debug.LogError("Player Animator is not assigned.");
                     return;
+                }
+
+                if (interactSound != null)
+                {
+                    interactSound.Play();
                 }
 
                 AddWaterToResourceManager();

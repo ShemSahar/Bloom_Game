@@ -20,6 +20,10 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Audio Settings")]
+        public AudioSource interactSoundOn;  // Reference to the AudioSource component for the On sound
+        public AudioSource interactSoundOff;  // Reference to the AudioSource component for the Off sound
+
         private bool sunlightAdded = false;
         private bool lightStateChanged = false;
 
@@ -53,18 +57,21 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned.");
             }
+
+            if (interactSoundOn == null)
+            {
+                Debug.LogError("Interact Sound On is not assigned.");
+            }
+
+            if (interactSoundOff == null)
+            {
+                Debug.LogError("Interact Sound Off is not assigned.");
+            }
         }
 
         private void Update()
         {
-            if (IsPlayerInRange())
-            {
-                outline.enabled = true;
-            }
-            else
-            {
-                outline.enabled = false;
-            }
+            // You can add any additional update logic here if needed
         }
 
         private void OnInteractButtonClicked()
@@ -93,10 +100,18 @@ namespace MyGame
                 if (controlledLight.intensity == 0.05f)
                 {
                     controlledLight.intensity = 1.0f;
+                    if (interactSoundOn != null)
+                    {
+                        interactSoundOn.Play();
+                    }
                 }
                 else
                 {
                     controlledLight.intensity = 0.05f;
+                    if (interactSoundOff != null)
+                    {
+                        interactSoundOff.Play();
+                    }
                 }
                 Debug.Log("Controlled Light Intensity: " + controlledLight.intensity);
 

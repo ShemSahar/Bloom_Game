@@ -26,6 +26,9 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Audio Settings")]
+        public AudioSource interactSound;  // Reference to the AudioSource component for interaction sound
+
         private Vector3 initialPosition;
         private bool isOpen = false;
         private bool hasInteracted = false;
@@ -66,6 +69,11 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned in the DrawerTutorial script.");
             }
+
+            if (interactSound == null)
+            {
+                Debug.LogError("Interact Sound is not assigned.");
+            }
         }
 
         private void Update()
@@ -99,6 +107,11 @@ namespace MyGame
                 {
                     playerAnimator.SetTrigger(interactAnimationTrigger);
                     Debug.Log("Interact animation triggered.");
+                }
+
+                if (interactSound != null)
+                {
+                    interactSound.Play();
                 }
 
                 StartCoroutine(MoveDrawer());

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MyGame
 {
@@ -13,10 +14,19 @@ namespace MyGame
         public Light[] spotLights; // Assign the spotlight objects in the Inspector
         public float maxIntensity = 5.0f;
         public float lightSpeed = 1.0f; // Speed of intensity increase
+        public float lightAmount = 50f;  // Amount of light to add to the player's resources
 
         [Header("Interaction Settings")]
         public float interactRange = 2.0f; // Range within which the player can interact
         public Transform playerTransform; // Assign the player object in the Inspector
+        public Button interactButton; // Assign the interaction button in the Inspector
+
+        [Header("Outline Settings")]
+        public Outline outline;  // Reference to the Outline component
+
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
         private bool isIncreasing;
         private Coroutine risingCoroutine;
@@ -37,27 +47,69 @@ namespace MyGame
             {
                 Debug.LogError("ResourceManager not found in the scene.");
             }
+
+            // Ensure the interactButton is assigned and set up the listener
+            if (interactButton == null)
+            {
+                Debug.LogError("Interact Button is not assigned.");
+                return;
+            }
+            interactButton.onClick.AddListener(HandleInteraction);
+
+            if (outline == null)
+            {
+                outline = GetComponent<Outline>();
+                if (outline == null)
+                {
+                    Debug.LogError("No Outline component found on the ShadeLightButton or its children.");
+                }
+            }
+            outline.enabled = true;  // Start with the outline toggled on
+
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned.");
+            }
         }
 
         private void Update()
         {
-            // Handle continuous pressing of the interact key
-            HandleInteraction();
-        }
-
-        public void Interact()
-        {
             if (IsPlayerInRange())
             {
-                AddLightResource();
-                StartRising();
-                StartIncreasing();
+                outline.enabled = true;
+            }
+            else
+            {
+                outline.enabled = false;
             }
         }
 
         private void HandleInteraction()
         {
-            // The interact key handling will be done by the external script
+            if (IsPlayerInRange())
+            {
+                Interact();
+            }
+        }
+
+        public void Interact()
+        {
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetTrigger(interactAnimationTrigger);
+                Debug.Log("Interact animation triggered.");
+            }
+            else
+            {
+                Debug.LogError("Player Animator is not assigned.");
+                return;
+            }
+
+            AddLightResource();
+            StartRising();
+            StartIncreasing();
+
+            outline.enabled = false;  // Toggle off the outline after interaction
         }
 
         private bool IsPlayerInRange()
@@ -74,7 +126,8 @@ namespace MyGame
         {
             if (resourceManager != null)
             {
-                resourceManager.AddSunlight(50f);
+                resourceManager.AddSunlight(lightAmount);  // Add light amount to the player's resources
+                Debug.Log("Added Light: " + lightAmount);
             }
         }
 
@@ -154,6 +207,14 @@ namespace MyGame
             // Draw a yellow sphere at the transform's position to visualize interact range in the editor
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, interactRange);
+        }
+
+        private void OnDestroy()
+        {
+            if (interactButton != null)
+            {
+                interactButton.onClick.RemoveListener(HandleInteraction);
+            }
         }
     }
 }

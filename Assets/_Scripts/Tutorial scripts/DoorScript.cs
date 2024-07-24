@@ -17,6 +17,12 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Outline Settings")]
+        public Outline outline;  // Reference to the Outline component
+
+        [Header("Audio Settings")]
+        public AudioClip interactSound;  // Audio clip for the interaction sound
+
         private bool isUnlocked = false;
 
         private void Start()
@@ -31,10 +37,25 @@ namespace MyGame
                 lockedMessageUI.SetActive(false);
             }
 
+            if (outline == null)
+            {
+                outline = GetComponent<Outline>();
+                if (outline == null)
+                {
+                    Debug.LogError("No Outline component found on the Door or its children.");
+                }
+            }
+            outline.enabled = false;  // Start with the outline toggled off
+
             // Check if playerAnimator is assigned
             if (playerAnimator == null)
             {
                 Debug.LogError("Player Animator is not assigned in the DoorScript.");
+            }
+
+            if (interactSound == null)
+            {
+                Debug.LogError("Interact Sound is not assigned.");
             }
         }
 
@@ -44,6 +65,15 @@ namespace MyGame
             if (keyIconUI != null && keyIconUI.activeSelf)
             {
                 isUnlocked = true;
+            }
+
+            if (IsPlayerInRange())
+            {
+                outline.enabled = true;
+            }
+            else
+            {
+                outline.enabled = false;
             }
         }
 
@@ -77,7 +107,11 @@ namespace MyGame
         private void UnlockDoor()
         {
             Debug.Log("Door unlocked! Loading next scene...");
-            SceneManager.LoadScene("Room2_Level1");
+            if (interactSound != null)
+            {
+                PersistentAudioManager.Instance.PlaySound(interactSound, true);
+            }
+            SceneManager.LoadScene("Loading1");
         }
 
         private void ShowLockedMessage()

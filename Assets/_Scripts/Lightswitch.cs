@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +13,14 @@ namespace MyGame
         public float interactRange = 2.0f;  // Range within which the player can interact
         public Transform playerTransform;  // Assign the player object in the Inspector
         public Button interactButton;  // Assign the interaction button in the Inspector
+        public Outline outline;  // Reference to the Outline component
 
-        public bool IsInteracted { get; internal set; }
+        [Header("Animator Settings")]
+        public Animator playerAnimator;  // Reference to the player's animator
+        public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
+
+        private bool sunlightAdded = false;  // Ensure sunlight is only added once
+        private bool lightStateChanged = false;
 
         private void Start()
         {
@@ -22,10 +28,42 @@ namespace MyGame
             {
                 Debug.LogError("No Light component found on the LightSwitch or its children.");
             }
+            else
+            {
+                controlledLight.intensity = 0.05f;  // Start with low intensity
+                controlledLight.enabled = true;  // Ensure the light is always on
+            }
 
             if (interactButton != null)
             {
                 interactButton.onClick.AddListener(TryInteract);
+            }
+
+            if (outline == null)
+            {
+                outline = GetComponent<Outline>();
+                if (outline == null)
+                {
+                    Debug.LogError("No Outline component found on the LightSwitch or its children.");
+                }
+            }
+            outline.enabled = true;  // Start with the outline toggled on
+
+            if (playerAnimator == null)
+            {
+                Debug.LogError("Player Animator is not assigned.");
+            }
+        }
+
+        private void Update()
+        {
+            if (IsPlayerInRange())
+            {
+                outline.enabled = true;
+            }
+            else
+            {
+                outline.enabled = false;
             }
         }
 
@@ -39,14 +77,42 @@ namespace MyGame
 
         public void Interact()
         {
-            if (controlledLight != null)
+            if (controlledLight != null && !lightStateChanged)
             {
-                controlledLight.enabled = !controlledLight.enabled;
-                if (controlledLight.enabled)
+                if (playerAnimator != null)
                 {
-                    AddSunlightToResourceManager();
+                    playerAnimator.SetTrigger(interactAnimationTrigger);
+                    Debug.Log("Interact animation triggered.");
                 }
+                else
+                {
+                    Debug.LogError("Player Animator is not assigned.");
+                    return;
+                }
+
+                if (controlledLight.intensity == 0.05f)
+                {
+                    controlledLight.intensity = 1.0f;
+                    if (!sunlightAdded)
+                    {
+                        AddSunlightToResourceManager();
+                        sunlightAdded = true;
+                    }
+                }
+                else
+                {
+                    controlledLight.intensity = 0.05f;
+                }
+
+                lightStateChanged = true;
+                outline.enabled = false;  // Toggle off the outline
+                Invoke(nameof(ResetLightStateChanged), 0.1f); // Reset the state after a short delay to prevent double interaction
             }
+        }
+
+        private void ResetLightStateChanged()
+        {
+            lightStateChanged = false;
         }
 
         private void AddSunlightToResourceManager()
@@ -55,6 +121,7 @@ namespace MyGame
             if (resourceManager != null)
             {
                 resourceManager.AddSunlight(sunlightAmount);
+                Debug.Log("Added Sunlight: " + sunlightAmount);
             }
             else
             {
@@ -85,16 +152,6 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(TryInteract);
             }
-        }
-
-        internal void EnableInteraction()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void ShowOutline(bool v)
-        {
-            throw new NotImplementedException();
         }
     }
 }
