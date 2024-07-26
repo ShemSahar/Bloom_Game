@@ -19,6 +19,11 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Audio Settings")]
+        public AudioClip onSound;  // Audio clip for the On sound
+        public AudioClip offSound;  // Audio clip for the Off sound
+        private AudioSource audioSource;  // Audio source to play the sounds
+
         private bool sunlightAdded = false;  // Ensure sunlight is only added once
         private bool lightStateChanged = false;
 
@@ -52,6 +57,12 @@ namespace MyGame
             if (playerAnimator == null)
             {
                 Debug.LogError("Player Animator is not assigned.");
+            }
+
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (onSound == null || offSound == null)
+            {
+                Debug.LogError("OnSound or OffSound is not assigned.");
             }
         }
 
@@ -93,6 +104,7 @@ namespace MyGame
                 if (controlledLight.intensity == 0.05f)
                 {
                     controlledLight.intensity = 1.0f;
+                    PlaySound(onSound);
                     if (!sunlightAdded)
                     {
                         AddSunlightToResourceManager();
@@ -102,11 +114,20 @@ namespace MyGame
                 else
                 {
                     controlledLight.intensity = 0.05f;
+                    PlaySound(offSound);
                 }
 
                 lightStateChanged = true;
                 outline.enabled = false;  // Toggle off the outline
                 Invoke(nameof(ResetLightStateChanged), 0.1f); // Reset the state after a short delay to prevent double interaction
+            }
+        }
+
+        private void PlaySound(AudioClip clip)
+        {
+            if (audioSource != null && clip != null)
+            {
+                audioSource.PlayOneShot(clip);
             }
         }
 

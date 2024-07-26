@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &145210989
 RectTransform:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287.3, y: 61.3}
+  m_AnchoredPosition: {x: 231.3, y: 13.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &145210990
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 34e1f0f7714af481692a816f697d32de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e9513232b01e54306bc34fbb34bd4964, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progressBar: {fileID: 1098983979}
   sceneToLoad: Room4_Level3
-  minimumLoadingTime: 3
+  minimumLoadingTime: 4
 --- !u!1 &178213418
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &586777506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 401.4, y: 61.30005}
+  m_AnchoredPosition: {x: 245.8, y: -97.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586777507
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b4685b3a3832452a848d71ebd5b3d98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77a752bb9fa444130accbbaea533c9a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1408,9 +1408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'DONT FORGET TO WATER YOUR PLANTS!
-
-    FINAL LEVEL'
+  m_text: "REMEMBER!\nTHERE IS A LIGHT SWITCH \t\tAND SHADES SWITCH"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 391fa349e934f4ed48b36c7a1882101a, type: 2}
   m_sharedMaterial: {fileID: 1064624306478766925, guid: 391fa349e934f4ed48b36c7a1882101a,

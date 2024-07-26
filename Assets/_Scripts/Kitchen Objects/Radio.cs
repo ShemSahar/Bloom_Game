@@ -18,13 +18,13 @@ namespace MyGame
 
         [Header("Audio Settings")]
         public AudioSource[] audioTracks;  // Array of audio tracks
-        private int currentTrackIndex = 0;
+        public AudioSource interactionSound;  // Audio source for the interaction sound
 
         [Header("Animator Settings")]
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interact animation
 
-        private bool isPlaying = false;
+        private int currentTrackIndex = -1;
         private AudioSource currentAudio;
 
         private void Start()
@@ -57,7 +57,11 @@ namespace MyGame
                 Debug.LogError("No audio tracks assigned to the Radio.");
                 return;
             }
-            currentAudio = audioTracks[currentTrackIndex];
+
+            if (interactionSound == null)
+            {
+                Debug.LogError("Interaction sound is not assigned.");
+            }
         }
 
         private void Update()
@@ -94,17 +98,26 @@ namespace MyGame
                 return;
             }
 
-            if (isPlaying)
+            // Stop the current track if playing
+            if (currentAudio != null && currentAudio.isPlaying)
             {
                 currentAudio.Stop();
-                isPlaying = false;
             }
-            else
+
+            // Play the interaction sound
+            if (interactionSound != null)
             {
-                currentTrackIndex = (currentTrackIndex + 1) % audioTracks.Length;
-                currentAudio = audioTracks[currentTrackIndex];
+                interactionSound.Play();
+            }
+
+            // Move to the next track/stage
+            currentTrackIndex = (currentTrackIndex + 1) % (audioTracks.Length + 1);
+
+            // Play the new track if not in TurnedOff state
+            if (currentTrackIndex > 0)
+            {
+                currentAudio = audioTracks[currentTrackIndex - 1];
                 currentAudio.Play();
-                isPlaying = true;
             }
 
             outline.enabled = false;  // Toggle off the outline after interaction

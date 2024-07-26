@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -6,12 +7,8 @@ public class MissionManager : MonoBehaviour
 {
     public GameObject missionListPanel;  // Panel that contains the mission list
     public Button missionListButton;  // Button to open/close the mission list
-    public TMP_Text mission1Text;  // Text component for mission 1
-    public TMP_Text mission2Text;  // Text component for mission 2
-    public TMP_Text mission3Text;  // Text component for mission 3
-    public TMP_Text mission4Text;  // Text component for mission 4
-    public TMP_Text mission5Text;  // Text component for mission 5
     public Animator missionListAnimator; // Animator component for mission list panel
+    public List<TMP_Text> missionTexts;  // List of Text components for the missions
 
     public Mission[] missions; // Array to hold all missions
 
@@ -20,11 +17,33 @@ public class MissionManager : MonoBehaviour
 
     private void Start()
     {
-        if (missionListPanel == null || missionListButton == null || mission1Text == null ||
-            mission2Text == null || mission3Text == null || mission4Text == null ||
-            mission5Text == null || missionListAnimator == null)
+        if (missionListPanel == null)
         {
-            Debug.LogError("One or more required references are not assigned in the Inspector.");
+            Debug.LogError("missionListPanel is not assigned in the Inspector.");
+            return;
+        }
+
+        if (missionListButton == null)
+        {
+            Debug.LogError("missionListButton is not assigned in the Inspector.");
+            return;
+        }
+
+        if (missionListAnimator == null)
+        {
+            Debug.LogError("missionListAnimator is not assigned in the Inspector.");
+            return;
+        }
+
+        if (missionTexts == null || missionTexts.Count == 0)
+        {
+            Debug.LogError("missionTexts is not assigned or is empty in the Inspector.");
+            return;
+        }
+
+        if (missions == null || missions.Length == 0)
+        {
+            Debug.LogError("missions array is not assigned or is empty in the Inspector.");
             return;
         }
 
@@ -43,12 +62,29 @@ public class MissionManager : MonoBehaviour
     {
         if (currentMissionIndex < missions.Length)
         {
-            GetMissionText(currentMissionIndex).color = Color.gray;  // Mark current mission as completed
+            TMP_Text missionText = GetMissionText(currentMissionIndex);
+            if (missionText != null)
+            {
+                missionText.color = Color.gray;  // Mark current mission as completed
+            }
+            else
+            {
+                Debug.LogError("Mission text at index " + currentMissionIndex + " is null.");
+            }
+
             missions[currentMissionIndex].CompleteMission();
             currentMissionIndex++;
             if (currentMissionIndex < missions.Length)
             {
-                GetMissionText(currentMissionIndex).gameObject.SetActive(true);  // Reveal the next mission
+                TMP_Text nextMissionText = GetMissionText(currentMissionIndex);
+                if (nextMissionText != null)
+                {
+                    nextMissionText.gameObject.SetActive(true);  // Reveal the next mission
+                }
+                else
+                {
+                    Debug.LogError("Next mission text at index " + currentMissionIndex + " is null.");
+                }
             }
             UpdateMissionState();
         }
@@ -56,24 +92,19 @@ public class MissionManager : MonoBehaviour
 
     private TMP_Text GetMissionText(int index)
     {
-        switch (index)
+        if (index >= 0 && index < missionTexts.Count)
         {
-            case 0: return mission1Text;
-            case 1: return mission2Text;
-            case 2: return mission3Text;
-            case 3: return mission4Text;
-            case 4: return mission5Text;
-            default: return null;
+            return missionTexts[index];
         }
+        return null;
     }
 
     private void InitializeMissionList()
     {
-        mission1Text.gameObject.SetActive(true);
-        mission2Text.gameObject.SetActive(false);
-        mission3Text.gameObject.SetActive(false);
-        mission4Text.gameObject.SetActive(false);
-        mission5Text.gameObject.SetActive(false);
+        for (int i = 0; i < missionTexts.Count; i++)
+        {
+            missionTexts[i].gameObject.SetActive(i == 0);  // Only activate the first mission text initially
+        }
     }
 
     private void UpdateMissionState()
@@ -98,6 +129,7 @@ public class Mission
     public string missionName;
     public GameObject interactableObject;
     private MonoBehaviour interactableScript;
+    private Outline interactableOutline;
 
     public void SetInteractable(bool state)
     {
@@ -108,6 +140,24 @@ public class Mission
             {
                 interactableScript.enabled = state;
             }
+            else
+            {
+                Debug.LogError("Interactable script not found on " + interactableObject.name);
+            }
+
+            interactableOutline = interactableObject.GetComponent<Outline>();
+            if (interactableOutline != null)
+            {
+                interactableOutline.enabled = state;
+            }
+            else
+            {
+                Debug.LogError("Outline component not found on " + interactableObject.name);
+            }
+        }
+        else
+        {
+            Debug.LogError("Interactable object is not assigned for mission: " + missionName);
         }
     }
 

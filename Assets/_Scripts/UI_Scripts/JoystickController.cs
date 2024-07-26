@@ -25,6 +25,9 @@ public class JoystickController : MonoBehaviour
     [SerializeField] private float jumpCooldown = 0.5f;
     [SerializeField] private float smoothTime = 0.1f; // Smoothing time for transitions
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource walkingSound; // Walking sound audio source
+
     private bool _isGrounded;
     private bool _canDoubleJump;
     private bool _readyToJump = true;
@@ -44,6 +47,12 @@ public class JoystickController : MonoBehaviour
     {
         // Ensure the Rigidbody constraints are set correctly at the start
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+        // Check if the walking sound is assigned
+        if (walkingSound == null)
+        {
+            Debug.LogError("Walking sound is not assigned.");
+        }
     }
 
     private void Update()
@@ -65,6 +74,22 @@ public class JoystickController : MonoBehaviour
 
         // Update the grounded status in the Animator
         _animator.SetBool("IsGrounded", IsGrounded());
+
+        // Play or stop walking sound based on movement
+        if (_moveMagnitude > 0.1f && IsGrounded())
+        {
+            if (!walkingSound.isPlaying)
+            {
+                walkingSound.Play();
+            }
+        }
+        else
+        {
+            if (walkingSound.isPlaying)
+            {
+                walkingSound.Stop();
+            }
+        }
 
         // Update the collider holder rotation based on movement direction
         UpdateColliderRotation();

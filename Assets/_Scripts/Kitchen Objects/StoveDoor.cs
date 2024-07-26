@@ -27,6 +27,11 @@ namespace MyGame
         [Header("Outline Settings")]
         public Outline doorOutline;  // Assign the Outline component in the Inspector
 
+        [Header("Audio Settings")]
+        public AudioClip openSound;  // Audio clip for the open sound
+        public AudioClip closeSound;  // Audio clip for the close sound
+        private AudioSource audioSource;  // Audio source to play the sounds
+
         private bool isOpen = false;  // To keep track of the door's state
         private bool isAnimating = false;  // To prevent multiple interactions during animation
         private Quaternion openRotation;
@@ -55,8 +60,16 @@ namespace MyGame
                 interactButton.onClick.AddListener(Interact);
             }
 
+            // Store the initial and target rotations
             closedRotation = doorTransform.rotation;
             openRotation = closedRotation * Quaternion.Euler(rotationAngle, 0, 0);
+
+            // Add and configure the audio source
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (openSound == null || closeSound == null)
+            {
+                Debug.LogError("OpenSound or CloseSound is not assigned.");
+            }
         }
 
         private void Update()
@@ -97,6 +110,13 @@ namespace MyGame
         private IEnumerator RotateDoor()
         {
             isAnimating = true;
+
+            // Play the appropriate sound
+            AudioClip clipToPlay = isOpen ? closeSound : openSound;
+            if (audioSource != null && clipToPlay != null)
+            {
+                audioSource.PlayOneShot(clipToPlay);
+            }
 
             if (doorAnimator != null)
             {

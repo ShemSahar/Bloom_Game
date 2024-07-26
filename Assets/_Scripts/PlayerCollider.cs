@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerCollider : MonoBehaviour
 {
     public Transform capsuleTransform; // Reference to the capsule's transform
     public float speed = 5f;

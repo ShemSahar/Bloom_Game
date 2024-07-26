@@ -26,6 +26,11 @@ namespace MyGame
         [Header("Vacuum Settings")]
         public LayerMask vacuumLayer;  // Layer that the vacuum is on
 
+        [Header("Audio Settings")]
+        public AudioClip interactSoundOn;  // Reference to the AudioSource component for the On sound
+        public AudioClip interactSoundOff;  // Reference to the AudioSource component for the Off sound
+        private AudioSource audioSource;  // Audio source to play the sounds
+
         private Rigidbody rb;
 
         private void Start()
@@ -77,6 +82,18 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned.");
             }
+
+            // Add and configure the audio source
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (interactSoundOn == null)
+            {
+                Debug.LogError("Interact Sound On is not assigned.");
+            }
+
+            if (interactSoundOff == null)
+            {
+                Debug.LogError("Interact Sound Off is not assigned.");
+            }
         }
 
         private void Update()
@@ -118,6 +135,10 @@ namespace MyGame
                 if (controlledLight != null && !controlledLight.enabled)
                 {
                     controlledLight.enabled = true;
+                    if (audioSource != null && interactSoundOn != null)
+                    {
+                        audioSource.PlayOneShot(interactSoundOn);
+                    }
                     hasInteractedAutomatically = true;  // Ensure this happens only once
                 }
             }
@@ -143,6 +164,20 @@ namespace MyGame
             if (controlledLight != null)
             {
                 controlledLight.enabled = !controlledLight.enabled;
+                if (controlledLight.enabled)
+                {
+                    if (audioSource != null && interactSoundOn != null)
+                    {
+                        audioSource.PlayOneShot(interactSoundOn);
+                    }
+                }
+                else
+                {
+                    if (audioSource != null && interactSoundOff != null)
+                    {
+                        audioSource.PlayOneShot(interactSoundOff);
+                    }
+                }
             }
             else
             {

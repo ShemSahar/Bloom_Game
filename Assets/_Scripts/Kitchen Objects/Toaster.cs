@@ -12,6 +12,8 @@ namespace MyGame
         private Transform playerTransform; // Assign the player object in the Inspector
         [SerializeField]
         private Button interactButton; // Assign the button in the Inspector
+        [SerializeField]
+        private MissionManager missionManager; // Reference to the MissionManager
 
         [Header("Outline Settings")]
         public Outline outline;  // Reference to the Outline component
@@ -112,6 +114,16 @@ namespace MyGame
 
             outline.enabled = false;  // Toggle off the outline after interaction
             hasInteracted = true;
+
+            // Inform the MissionManager
+            if (missionManager != null)
+            {
+                missionManager.CompleteMission();
+            }
+            else
+            {
+                Debug.LogError("MissionManager is not assigned.");
+            }
         }
 
         private IEnumerator ChangeColor()

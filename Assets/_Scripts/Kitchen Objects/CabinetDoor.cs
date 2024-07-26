@@ -23,6 +23,11 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Audio Settings")]
+        public AudioClip openSound;  // Audio clip for the open sound
+        public AudioClip closeSound;  // Audio clip for the close sound
+        private AudioSource audioSource;  // Audio source to play the sounds
+
         [Header("Gizmos Settings")]
         public Vector3 gizmosOffset = Vector3.zero;  // Offset for Gizmos location
 
@@ -69,6 +74,13 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned in the CabinetDoor script.");
             }
+
+            // Add and configure the audio source
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (openSound == null || closeSound == null)
+            {
+                Debug.LogError("OpenSound or CloseSound is not assigned.");
+            }
         }
 
         private void Update()
@@ -113,6 +125,13 @@ namespace MyGame
 
             Quaternion targetRotation = isOpen ? closedRotation : openRotation;
             Quaternion startRotation = doorTransform.rotation;
+
+            // Play the appropriate sound
+            AudioClip clipToPlay = isOpen ? closeSound : openSound;
+            if (audioSource != null && clipToPlay != null)
+            {
+                audioSource.PlayOneShot(clipToPlay);
+            }
 
             float time = 0f;
 

@@ -9,6 +9,8 @@ namespace MyGame
         public LayerMask wallAndFurnitureLayer; // Layer to detect walls and furniture
         public GameObject stopCollisionObject; // Game object that stops the vacuum when collided with
 
+        public MissionManager missionManager; // Reference to the MissionManager
+
         private Vector3 direction;
         private Rigidbody rb;
         private Vector3 lastPosition;
@@ -61,6 +63,11 @@ namespace MyGame
             if (collision.gameObject == stopCollisionObject)
             {
                 StopMovement(collision.gameObject);
+                // Notify the mission manager that the mission is completed
+                if (missionManager != null)
+                {
+                    missionManager.CompleteMission();
+                }
             }
         }
 
@@ -73,6 +80,11 @@ namespace MyGame
                 if (Vector3.Distance(rb.position, lastPosition) < 0.01f) // Very small movement suggests being stuck
                 {
                     ChangeDirection(); // Change direction to possibly get unstuck
+                    // Notify the mission manager that the mission is completed
+                    if (missionManager != null)
+                    {
+                        missionManager.CompleteMission();
+                    }
                 }
                 lastPosition = rb.position;
                 timeSinceLastCheck = 0;

@@ -109,7 +109,7 @@ namespace MyGame
             Debug.Log("Door unlocked! Loading next scene...");
             if (interactSound != null)
             {
-                PersistentAudioManager.Instance.PlaySound(interactSound, true);
+                PlaySoundThroughSceneChange(interactSound);
             }
             SceneManager.LoadScene("Loading1");
         }
@@ -155,6 +155,16 @@ namespace MyGame
             {
                 interactButton.onClick.RemoveListener(OnInteractButtonClicked);
             }
+        }
+
+        private void PlaySoundThroughSceneChange(AudioClip clip)
+        {
+            GameObject audioObject = new GameObject("OneShotAudio");
+            AudioSource audioSource = audioObject.AddComponent<AudioSource>();
+            audioSource.clip = clip;
+            audioSource.Play();
+            DontDestroyOnLoad(audioObject);
+            Destroy(audioObject, clip.length); // Destroy after the clip has finished playing
         }
     }
 }

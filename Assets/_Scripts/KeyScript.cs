@@ -18,6 +18,9 @@ namespace MyGame
         [Header("Outline Settings")]
         public Outline outline;  // Reference to the Outline component
 
+        [Header("Mission Settings")]
+        public MissionManager missionManager;  // Reference to the MissionManager
+
         private bool isCollected = false;
         private Renderer keyRenderer;
 
@@ -54,7 +57,7 @@ namespace MyGame
 
         private void Update()
         {
-            if (IsPlayerInRange() && !isCollected)
+            if (!isCollected && IsPlayerInRange())
             {
                 EnableOutline(true);
             }
@@ -92,6 +95,12 @@ namespace MyGame
                 }
 
                 Debug.Log("Key collected!");
+
+                // Inform the mission manager
+                if (missionManager != null)
+                {
+                    missionManager.CompleteMission();
+                }
             }
         }
 

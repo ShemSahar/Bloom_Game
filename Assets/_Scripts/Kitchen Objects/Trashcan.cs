@@ -11,6 +11,8 @@ namespace MyGame
         private Transform playerTransform; // Assign the player object in the Inspector
         [SerializeField]
         private Button interactButton; // Assign the button in the Inspector
+        [SerializeField]
+        private MissionManager missionManager; // Reference to the MissionManager
 
         [Header("Outline Settings")]
         public Outline outline;  // Reference to the Outline component
@@ -98,6 +100,12 @@ namespace MyGame
 
             isOpen = !isOpen;
             outline.enabled = false;  // Toggle off the outline after interaction
+
+            // Inform the MissionManager if the trashcan's position on the Z-axis is -5
+            if (Mathf.Approximately(transform.position.z, -5f) && missionManager != null)
+            {
+                missionManager.CompleteMission();
+            }
         }
 
         private bool IsPlayerInRange()

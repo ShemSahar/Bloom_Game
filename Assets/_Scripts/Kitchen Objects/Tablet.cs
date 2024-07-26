@@ -24,6 +24,14 @@ namespace MyGame
         public Button closeButton;  // Reference to the close button in the Inspector
         public GameObject toggleGameObject;  // Reference to the game object to toggle
 
+        [Header("Audio Settings")]
+        public AudioClip interactSound;  // Audio clip for the interaction sound
+        private AudioSource audioSource;  // Audio source to play the sounds
+
+        [Header("Passcode Settings")]
+        public NumpadScript numpadScript;  // Reference to the NumpadScript for passcode verification
+        public MissionManager missionManager;  // Reference to the MissionManager
+
         private bool isInteracted = false;
         private bool isMovingOut = false;
         private bool isShown = false;
@@ -49,6 +57,23 @@ namespace MyGame
                 }
             }
             outline.enabled = false;  // Start with the outline toggled off
+
+            // Add and configure the audio source
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (interactSound == null)
+            {
+                Debug.LogError("InteractSound is not assigned.");
+            }
+
+            if (numpadScript == null)
+            {
+                Debug.LogError("NumpadScript is not assigned.");
+            }
+
+            if (missionManager == null)
+            {
+                Debug.LogError("MissionManager is not assigned.");
+            }
         }
 
         private void Update()
@@ -77,6 +102,12 @@ namespace MyGame
             {
                 StartCoroutine(MoveIn());
                 isInteracted = true;
+
+                // Play the interact sound
+                if (audioSource != null && interactSound != null)
+                {
+                    audioSource.PlayOneShot(interactSound);
+                }
             }
         }
 
@@ -98,6 +129,12 @@ namespace MyGame
 
             isShown = true;
             DisableInput();
+
+            // Check if the passcode is correct and inform the MissionManager
+            if (numpadScript.IsPasscodeCorrect())
+            {
+                missionManager.CompleteMission();
+            }
         }
 
         private void DisableInput()

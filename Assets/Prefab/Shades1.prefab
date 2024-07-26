@@ -791,6 +791,7 @@ MonoBehaviour:
   outline: {fileID: 6471113010667562503}
   playerAnimator: {fileID: 0}
   interactAnimationTrigger: Interact
+  interactSound: {fileID: 0}
   missionManager: {fileID: 0}
 --- !u!65 &6907409017635181723
 BoxCollider:

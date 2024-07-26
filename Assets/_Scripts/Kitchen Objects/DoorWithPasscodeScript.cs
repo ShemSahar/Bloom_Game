@@ -22,6 +22,7 @@ namespace MyGame
 
         [Header("Audio Settings")]
         public AudioClip interactSound;  // Audio clip for the interaction sound
+        private AudioSource audioSource;  // Audio source to play the sound
 
         private bool isUnlocked = false;
 
@@ -53,6 +54,8 @@ namespace MyGame
                 Debug.LogError("Player Animator is not assigned in the DoorScript.");
             }
 
+            // Add and configure the audio source
+            audioSource = gameObject.AddComponent<AudioSource>();
             if (interactSound == null)
             {
                 Debug.LogError("Interact Sound is not assigned.");
@@ -101,11 +104,22 @@ namespace MyGame
         public void UnlockDoor()
         {
             Debug.Log("Door unlocked! Loading next scene...");
-            if (interactSound != null)
+            if (interactSound != null && audioSource != null)
             {
-                PersistentAudioManager.Instance.PlaySound(interactSound, true);
+                audioSource.clip = interactSound;
+                audioSource.Play();
+                DontDestroyOnLoad(audioSource.gameObject);
             }
-            SceneManager.LoadScene("Loading2");
+            StartCoroutine(LoadSceneAfterSound("Loading2"));
+        }
+
+        private IEnumerator LoadSceneAfterSound(string sceneName)
+        {
+            while (audioSource.isPlaying)
+            {
+                yield return null;
+            }
+            SceneManager.LoadScene(sceneName);
         }
 
         private void ShowLockedMessage()

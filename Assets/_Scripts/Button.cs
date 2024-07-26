@@ -28,6 +28,10 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Audio Settings")]
+        public AudioClip interactSound;  // Audio clip for the interaction sound
+        private AudioSource audioSource;  // Audio source to play the sound
+
         private bool isIncreasing;
         private Coroutine risingCoroutine;
         private ResourceManager resourceManager;
@@ -70,6 +74,12 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned.");
             }
+
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (interactSound == null)
+            {
+                Debug.LogError("Interact sound is not assigned.");
+            }
         }
 
         private void Update()
@@ -103,6 +113,11 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned.");
                 return;
+            }
+
+            if (audioSource != null && interactSound != null)
+            {
+                audioSource.PlayOneShot(interactSound);
             }
 
             AddLightResource();

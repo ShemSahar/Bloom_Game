@@ -23,6 +23,10 @@ namespace MyGame
         public Animator playerAnimator;  // Reference to the player's animator
         public string interactAnimationTrigger = "Interact";  // Name of the trigger for the interaction animation
 
+        [Header("Audio Settings")]
+        public AudioClip interactSound;  // Audio clip for the interaction sound
+        private AudioSource audioSource;  // Audio source to play the sound
+
         private Vector3[] initialPositions;
         private bool[] isOpen;
         private bool hasInteracted = false;
@@ -70,6 +74,12 @@ namespace MyGame
             {
                 Debug.LogError("Player Animator is not assigned in the MultiDrawerController script.");
             }
+
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (interactSound == null)
+            {
+                Debug.LogError("Interact sound is not assigned.");
+            }
         }
 
         private void Update()
@@ -94,30 +104,24 @@ namespace MyGame
 
         public void Interact()
         {
-            if (!hasInteracted)
+            if (playerAnimator != null)
             {
-                // Trigger the interact animation
-                if (playerAnimator != null)
-                {
-                    playerAnimator.SetTrigger(interactAnimationTrigger);
-                    Debug.Log("Interact animation triggered.");
-                }
-
-                for (int i = 0; i < drawerTransforms.Length; i++)
-                {
-                    StartCoroutine(MoveDrawer(i));
-                }
-
-                outline.enabled = false;  // Toggle off the outline after interaction
-                hasInteracted = true;
+                playerAnimator.SetTrigger(interactAnimationTrigger);
+                Debug.Log("Interact animation triggered.");
             }
-            else
+
+            if (interactSound != null)
             {
-                for (int i = 0; i < drawerTransforms.Length; i++)
-                {
-                    StartCoroutine(MoveDrawer(i));
-                }
+                audioSource.PlayOneShot(interactSound);
             }
+
+            for (int i = 0; i < drawerTransforms.Length; i++)
+            {
+                StartCoroutine(MoveDrawer(i));
+            }
+
+            outline.enabled = false;  // Toggle off the outline after interaction
+            hasInteracted = true;
         }
 
         private IEnumerator MoveDrawer(int index)

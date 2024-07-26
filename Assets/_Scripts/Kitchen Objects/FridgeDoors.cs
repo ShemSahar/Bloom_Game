@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI; // Make sure to include this namespace
+using UnityEngine.UI;
 
 namespace MyGame
 {
@@ -20,6 +20,11 @@ namespace MyGame
         [Header("Light Settings")]
         public Light cabinetLight;  // Drag and drop the light component here
         public float lightAmount = 10f;  // Amount of light to add to the player's resources
+
+        [Header("Audio Settings")]
+        public AudioClip openSound;  // Audio clip for the open sound
+        public AudioClip closeSound;  // Audio clip for the close sound
+        private AudioSource audioSource;  // Audio source to play the sounds
 
         [Header("Gizmos Settings")]
         public Vector3 gizmosOffset = Vector3.zero;  // Offset for Gizmos location
@@ -72,6 +77,13 @@ namespace MyGame
                 }
             }
             outline.enabled = true;  // Start with the outline toggled on
+
+            // Add and configure the audio source
+            audioSource = gameObject.AddComponent<AudioSource>();
+            if (openSound == null || closeSound == null)
+            {
+                Debug.LogError("OpenSound or CloseSound is not assigned.");
+            }
         }
 
         private void Update()
@@ -118,6 +130,13 @@ namespace MyGame
 
             Quaternion targetRotation = isOpen ? closedRotation : openRotation;
             Quaternion startRotation = doorTransform.rotation;
+
+            // Play the appropriate sound
+            AudioClip clipToPlay = isOpen ? closeSound : openSound;
+            if (audioSource != null && clipToPlay != null)
+            {
+                audioSource.PlayOneShot(clipToPlay);
+            }
 
             float time = 0f;
 
